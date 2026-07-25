@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { withUtm } from '@/lib/outbound';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
@@ -226,7 +227,7 @@ const MCPCatalog: React.FC = () => {
           <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()} role="presentation">
             {server.url && (
                 <a
-                  href={server.url}
+                  href={withUtm(server.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors"
@@ -236,7 +237,7 @@ const MCPCatalog: React.FC = () => {
                 </a>
             )}
             <a
-              href={server.githubUrl}
+              href={server.githubUrl ? withUtm(server.githubUrl) : undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="p-1.5 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"

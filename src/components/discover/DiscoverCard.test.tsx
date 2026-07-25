@@ -15,7 +15,8 @@ describe('DiscoverCard', () => {
   it('renders an external anchor with safe rel for external items', () => {
     renderCard({ ...base, type: 'tool', href: 'https://langchain.com', external: true });
     const link = screen.getByRole('link', { name: /LangChain/i });
-    expect(link).toHaveAttribute('href', 'https://langchain.com');
+    expect(link).toHaveAttribute('href', expect.stringContaining('https://langchain.com'));
+    expect(link).toHaveAttribute('href', expect.stringContaining('utm_source=collectiveai.tools'));
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     expect(link).toHaveAttribute('target', '_blank');
   });

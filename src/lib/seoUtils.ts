@@ -113,27 +113,20 @@ export const generateWebsiteStructuredData = () => {
         {
           "@type": "ListItem",
           "position": 5,
-          "name": "Interactive Roadmap",
-          "description": "Step-by-step AI learning paths",
-          "url": "https://collectiveai.tools/roadmap"
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
           "name": "Skills Marketplace",
           "description": "Discover and install agent skills for AI coding tools",
           "url": "https://collectiveai.tools/skills"
         },
         {
           "@type": "ListItem",
-          "position": 7,
+          "position": 6,
           "name": "Trending",
           "description": "Hottest AI repositories trending on GitHub",
           "url": "https://collectiveai.tools/trending"
         },
         {
           "@type": "ListItem",
-          "position": 8,
+          "position": 7,
           "name": "ContextKit",
           "description": "Generate AI context for your dev stack, works with any LLM",
           "url": "https://ck.collectiveai.tools/"

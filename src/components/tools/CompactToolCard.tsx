@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tool } from '../../types/tools';
 import { ExternalLink } from 'lucide-react';
+import { withUtm } from '@/lib/outbound';
 
 interface CompactToolCardProps {
   tool: Tool;
@@ -29,13 +30,9 @@ const CompactToolCard: React.FC<CompactToolCardProps> = ({ tool, rank, onTrackCl
     return n.toString();
   };
 
-  const formattedUrl = new URL(tool.url);
-  formattedUrl.searchParams.set('utm_source', 'collectiveai.tools');
-  formattedUrl.searchParams.set('utm_medium', 'referral');
-
   return (
     <a
-      href={formattedUrl.toString()}
+      href={withUtm(tool.url)}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleCardClick}

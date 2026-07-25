@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { withUtm } from '@/lib/outbound';
 import {
   Search,
   Star,
@@ -349,7 +350,7 @@ const SkillsMarketplace: React.FC = () => {
                           )}
                         </button>
                         <a
-                          href={skill.repo}
+                          href={withUtm(skill.repo)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"

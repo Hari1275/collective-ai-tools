@@ -44,12 +44,18 @@ const enc = encodeURIComponent;
 
 export type SortKey = 'popular' | 'newest';
 
+export interface BrowseResult {
+  items: DiscoverItem[];
+  /** Total available in this category (not just the previewed page). */
+  total: number;
+}
+
 export interface Source {
   type: DiscoverType;
   label: string;
   seeAllHref: string;
   searchItems(query: string, signal: AbortSignal): Promise<DiscoverItem[]>;
-  browseItems(signal: AbortSignal, sort: SortKey): Promise<DiscoverItem[]>;
+  browseItems(signal: AbortSignal, sort: SortKey): Promise<BrowseResult>;
 }
 
 export const SOURCES: Source[] = [
@@ -62,7 +68,8 @@ export const SOURCES: Source[] = [
     async browseItems(signal, sort) {
       const s = sort === 'newest' ? 'newest' : 'popular';
       const j = await getJson(`/api/ai-tools?limit=${BROWSE_LIMIT}&sort=${s}`, signal);
-      return (j.data ?? []).map(adaptTool);
+      const items = (j.data ?? []).map(adaptTool);
+      return { items, total: j.pagination?.total ?? items.length };
     },
   },
   {
@@ -74,7 +81,8 @@ export const SOURCES: Source[] = [
     async browseItems(signal, sort) {
       const s = sort === 'newest' ? 'newest' : 'popular';
       const j = await getJson(`/api/mcp?limit=${BROWSE_LIMIT}&sort=${s}`, signal);
-      return (j.data ?? []).map(adaptMcp);
+      const items = (j.data ?? []).map(adaptMcp);
+      return { items, total: j.pagination?.total ?? items.length };
     },
   },
   {
@@ -86,7 +94,8 @@ export const SOURCES: Source[] = [
     async browseItems(signal, sort) {
       const s = sort === 'newest' ? 'newest' : 'rating';
       const j = await getJson(`/api/prompts?limit=${BROWSE_LIMIT}&sort=${s}`, signal);
-      return (j.prompts ?? []).map(adaptPrompt);
+      const items = (j.prompts ?? []).map(adaptPrompt);
+      return { items, total: j.total ?? items.length };
     },
   },
   {
@@ -97,7 +106,8 @@ export const SOURCES: Source[] = [
     },
     async browseItems(signal) {
       const j = await getJson('/api/skills', signal);
-      return (j.data ?? []).slice(0, BROWSE_LIMIT).map(adaptSkill);
+      const all = (j.data ?? []).map(adaptSkill);
+      return { items: all.slice(0, BROWSE_LIMIT), total: all.length };
     },
   },
   {
@@ -111,7 +121,8 @@ export const SOURCES: Source[] = [
     },
     async browseItems(signal) {
       const j = await getJson('/api/trending-repos', signal);
-      return (j.data ?? []).map(adaptRepo).slice(0, BROWSE_LIMIT);
+      const all = (j.data ?? []).map(adaptRepo);
+      return { items: all.slice(0, BROWSE_LIMIT), total: all.length };
     },
   },
 ];

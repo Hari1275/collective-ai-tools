@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tool } from '../../types/tools';
 import { Heart, ExternalLink, Scale } from 'lucide-react';
+import { withUtm } from '@/lib/outbound';
 
 
 interface ToolCardProps {
@@ -30,13 +31,9 @@ const ToolCard: React.FC<ToolCardProps> = ({
     onTrackClick(tool);
   };
 
-  const formattedUrl = new URL(tool.url);
-  formattedUrl.searchParams.set('utm_source', 'collectiveai.tools');
-  formattedUrl.searchParams.set('utm_medium', 'referral');
-
   return (
     <a
-      href={formattedUrl.toString()}
+      href={withUtm(tool.url)}
       target="_blank"
       rel="noopener noreferrer"
       className="group block h-full"
@@ -55,7 +52,7 @@ const ToolCard: React.FC<ToolCardProps> = ({
                   onCompareToggle?.(tool);
                 }}
                 className={`
-                  p-1.5 rounded-lg border transition-all duration-200 z-10
+                  p-2.5 rounded-lg border transition-all duration-200 z-10
                   ${isComparing 
                     ? 'bg-blue-100 border-blue-400 dark:bg-blue-900/30 dark:border-blue-600' 
                     : 'bg-white/90 border-gray-200 dark:bg-gray-800/90 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -70,7 +67,7 @@ const ToolCard: React.FC<ToolCardProps> = ({
               <button
                 onClick={handleFavoriteClick}
                 className={`
-                  p-1.5 rounded-lg border transition-all duration-200 z-10
+                  p-2.5 rounded-lg border transition-all duration-200 z-10
                   ${isFavorite 
                     ? 'bg-yellow-100 border-yellow-400 dark:bg-yellow-900/30 dark:border-yellow-600' 
                     : 'bg-white/90 border-gray-200 dark:bg-gray-800/90 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'

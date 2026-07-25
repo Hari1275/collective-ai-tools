@@ -642,3 +642,21 @@
     color: rgb(156 163 175 / var(--tw-placeholder-opacity)) !important;
   }
 }
+
+/* Discover: staggered card reveal (motion-safe) */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes discover-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .discover-in {
+    animation: discover-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}

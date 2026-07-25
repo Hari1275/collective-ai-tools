@@ -9,7 +9,7 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, Menu, Coffee, Github, X, Wrench, Terminal, Database, Map,  GitBranch,
+import { LogOut, Menu, Coffee, Github, X, Wrench, Terminal, Database, GitBranch,
   MessageSquare, Brain, Puzzle,
 } from 'lucide-react';
 
@@ -56,12 +56,6 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
       label: 'MCP Catalog',
       description: 'Discover Model Context Protocol servers',
       icon: Database
-    },
-    {
-      path: '/roadmap',
-      label: 'Roadmap',
-      description: 'Step-by-step AI learning paths',
-      icon: Map
     },
     {
       path: '/prompts',

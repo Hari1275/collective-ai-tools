@@ -6,6 +6,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { withUtm } from '@/lib/outbound';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
@@ -140,7 +141,7 @@ const MCPServerSidebar: React.FC<{
         <Button
           variant="outline"
           className="w-full justify-start"
-          onClick={() => server.githubUrl && window.open(server.githubUrl, '_blank')}
+          onClick={() => server.githubUrl && window.open(withUtm(server.githubUrl), '_blank')}
           disabled={!server.githubUrl}
         >
           <ExternalLink className="h-4 w-4 mr-2" />
@@ -175,7 +176,7 @@ const ContributorCTA: React.FC<{ serverName: string; githubUrl?: string }> = ({ 
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Button
-          onClick={() => githubUrl && window.open(githubUrl, '_blank')}
+          onClick={() => githubUrl && window.open(withUtm(githubUrl), '_blank')}
           className="flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
           disabled={!githubUrl}
         >
@@ -390,7 +391,7 @@ const MCPServerDetail: React.FC = () => {
             </div>
             <div className="flex items-center gap-3">
               <Button
-                onClick={() => server.githubUrl && window.open(server.githubUrl, '_blank')}
+                onClick={() => server.githubUrl && window.open(withUtm(server.githubUrl), '_blank')}
                 className="flex items-center gap-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white"
                 disabled={!server.githubUrl}
               >

@@ -1,5 +1,7 @@
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { BadgeCheck } from 'lucide-react';
+import { withUtm } from '@/lib/outbound';
 import { captureEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { TYPE_ACCENT } from './theme';
@@ -11,7 +13,7 @@ function monogram(title: string): string {
   return title.replace(/[^a-z0-9]/gi, '').slice(0, 2).toUpperCase() || '?';
 }
 
-export function DiscoverCard({ item }: { item: DiscoverItem }) {
+export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSProperties }) {
   const accent = TYPE_ACCENT[item.type];
   const onClick = () =>
     captureEvent('discover_click', { type: item.type, id: item.id, title: item.title });
@@ -76,17 +78,17 @@ export function DiscoverCard({ item }: { item: DiscoverItem }) {
     </div>
   );
 
-  const wrapper = 'block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500';
+  const wrapper = 'discover-in block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500';
 
   if (item.external) {
     return (
-      <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={onClick} className={wrapper}>
+      <a href={withUtm(item.href)} target="_blank" rel="noopener noreferrer" onClick={onClick} className={wrapper} style={style}>
         {body}
       </a>
     );
   }
   return (
-    <Link to={item.href} onClick={onClick} className={wrapper}>
+    <Link to={item.href} onClick={onClick} className={wrapper} style={style}>
       {body}
     </Link>
   );
