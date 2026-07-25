@@ -10,17 +10,31 @@ import App from './app';
 import { AuthProvider } from './context/AuthContext';
 import './styles/globals.css';
 
+// Mocked API by default in dev, so contributors without backend access get a
+// working app out of the box (see src/mocks). Opt out with VITE_USE_REAL_API=true
+// in .env.local if you have a real backend running and want live data.
+async function enableMocksIfNeeded() {
+  if (!import.meta.env.DEV || import.meta.env.VITE_USE_REAL_API === 'true') return;
+  const { worker } = await import('./mocks/browser');
+  await worker.start({ onUnhandledRequest: 'bypass' });
+}
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+async function bootstrap() {
+  await enableMocksIfNeeded();
 
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+  const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+  );
+
+  root.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
+
+bootstrap();

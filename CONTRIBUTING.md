@@ -2,6 +2,10 @@
 
 First off, thank you for considering contributing! It's people like you that make Collective AI Tools such a great resource. We welcome any type of contribution, not only code.
 
+## Working on the frontend without backend access
+
+The backend is closed-source, but you don't need it to work on the frontend. Running `pnpm dev` mocks the API by default (via [MSW](https://mswjs.io)) with realistic fixture data, so the app runs fully offline — browsing, search, login, and submitting a tool all work against mocked responses. See `src/mocks/` for the fixtures and handlers.
+
 ## How Can I Contribute?
 
 The most common and impactful way to contribute is by adding new AI tools to our list. Our `README.md` file is the single source of truth for all the tools listed on the [collectiveai.tools](https://collectiveai.tools) website.

@@ -18,10 +18,6 @@
       "destination": "https://app.collectiveai.tools/api/sitemap.xml"
     },
     {
-      "source": "/robots.txt",
-      "destination": "https://app.collectiveai.tools/api/robots.txt"
-    },
-    {
       "source": "/ai-data.json",
       "destination": "https://app.collectiveai.tools/api/ai-data"
     },
