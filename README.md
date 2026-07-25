@@ -89,7 +89,6 @@ Use these hashtags in search to filter out the tools
 - [Video](#video)
 - [Weather](#weather)
 - [Writing](#writing)
-- [Trending 2025 AI Tools](#trending-2025-ai-tools)
 
 ## 3D
 
@@ -1262,28 +1261,6 @@ Use these hashtags in search to filter out the tools
 - [Yizhuan](https://yizhuan.com/) - Self-media data mining and creation tool. 112 `#free`
 - [Youdao AI Writing](https://write.youdao.com/) - Automated multi-language text generation. 90 ``
 - [Youdao Writing](https://write.youdao.com/) - English improvement with authoritative correction. 91 `#free`
-
-**[⬆️ Back to Top](#table-of-contents)**
-
-## Trending 2025 AI Tools
-
-- [Perplexity Pro](https://www.perplexity.ai/) - AI-powered search engine with real-time information and source citations `#freemium`
-- [Arc Browser](https://arc.net/) - AI-powered browser with intelligent tab management and smart features `#free`
-- [SORA2](http://sora.chatgpt.com/) - Advanced multimodal model by OpenAI supporting video generation `#free`
-- [Openai Agent Builder](https://platform.openai.com/agent-builder) - designing, deploying, and managing autonomous AI agents with No Code `Freemium`
-- [Notion AI](https://www.notion.so/product/ai) - AI writing assistant integrated into Notion workspace `#freemium`
-- [Gamma](https://gamma.app/) - AI-powered presentation and document creation platform `#freemium`
-- [Tavily](https://tavily.com/) - AI-powered research assistant for finding and summarizing information `#freemium`
-- [Cursor](https://cursor.sh/) - AI-powered code editor with advanced code generation capabilities `#freemium`
-- [Replit Agent](https://replit.com/) - AI coding assistant that can build entire applications `#freemium`
-- [Claude Desktop](https://claude.ai/) - Desktop application for Anthropic's Claude AI assistant `#freemium`
-- [ChatGPT Desktop](https://openai.com/chatgpt) - Desktop application for OpenAI's ChatGPT `#freemium`
-- [Bard Advanced](https://bard.google.com/) - Google's advanced AI assistant with enhanced capabilities `#free`
-- [Pi AI](https://pi.ai/) - Personal AI assistant focused on emotional intelligence and conversation `#free`
-- [Character.AI](https://character.ai/) - Create and chat with AI characters with distinct personalities `#freemium`
-- [Poe](https://poe.com/) - Platform to access multiple AI models in one place `#freemium`
-- [Hugging Face Chat](https://huggingface.co/chat) - Open-source AI chat interface with multiple models `#free`
-- [You.com](https://you.com/) - AI search engine with chat capabilities and real-time information `#freemium`
 
 **[⬆️ Back to Top](#table-of-contents)**
 
