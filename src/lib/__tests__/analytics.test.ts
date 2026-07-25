@@ -29,7 +29,19 @@ describe('analytics', () => {
     expect(captureMock).not.toHaveBeenCalled();
   });
 
+  it('does not init in development, even when a key is present', async () => {
+    vi.stubEnv('VITE_POSTHOG_KEY', 'phc_test');
+    const { initAnalytics, captureEvent } = await import('../analytics');
+
+    initAnalytics();
+    await captureEvent('tool_click');
+
+    expect(initMock).not.toHaveBeenCalled();
+    expect(captureMock).not.toHaveBeenCalled();
+  });
+
   it('inits cookieless (memory persistence) when a key is present', async () => {
+    vi.stubEnv('DEV', false);
     vi.stubEnv('VITE_POSTHOG_KEY', 'phc_test');
     const { initAnalytics, captureEvent } = await import('../analytics');
 
@@ -45,6 +57,7 @@ describe('analytics', () => {
   });
 
   it('captures a SPA pageview with the route path', async () => {
+    vi.stubEnv('DEV', false);
     vi.stubEnv('VITE_POSTHOG_KEY', 'phc_test');
     const { capturePageview } = await import('../analytics');
 
@@ -57,6 +70,7 @@ describe('analytics', () => {
   });
 
   it('inits only once across multiple calls', async () => {
+    vi.stubEnv('DEV', false);
     vi.stubEnv('VITE_POSTHOG_KEY', 'phc_test');
     const { initAnalytics, captureEvent, capturePageview } = await import('../analytics');
 

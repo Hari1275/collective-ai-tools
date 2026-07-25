@@ -15,6 +15,9 @@ import type { PostHog } from 'posthog-js';
  *   consent banner is required.
  * - No-ops silently when `VITE_POSTHOG_KEY` is not configured, so the site runs
  *   identically with analytics disabled.
+ * - Never initializes outside a production build (`import.meta.env.DEV`), so
+ *   local development never sends events into production analytics, even if
+ *   `VITE_POSTHOG_KEY` happens to be set in `.env.local`.
  */
 
 const DEFAULT_HOST = 'https://us.i.posthog.com';
@@ -23,6 +26,7 @@ let clientPromise: Promise<PostHog | null> | null = null;
 
 async function loadClient(): Promise<PostHog | null> {
   if (typeof window === 'undefined') return null;
+  if (import.meta.env.DEV) return null;
 
   const key = import.meta.env.VITE_POSTHOG_KEY;
   if (!key) return null;
