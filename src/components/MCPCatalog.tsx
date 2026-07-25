@@ -140,9 +140,9 @@ const MCPCatalog: React.FC = () => {
       aria-label={item.name}
       onClick={() => handleCardClick(item)}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCardClick(item); } }}
-      className="group relative flex items-center gap-4 p-4 rounded-xl bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
+      className="group relative flex items-center gap-4 p-4 rounded-xl bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
     >
-      <div className={`flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center ${type === 'popular' ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400'}`}>
+      <div className={`shrink-0 h-10 w-10 rounded-lg flex items-center justify-center ${type === 'popular' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400'}`}>
         {type === 'popular' ? <TrendingUp className="h-5 w-5" /> : <Zap className="h-5 w-5" />}
       </div>
       <div className="flex-1 min-w-0">
@@ -166,7 +166,7 @@ const MCPCatalog: React.FC = () => {
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3 flex-1 overflow-hidden">
-            <div className="p-2.5 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg text-blue-600 dark:text-blue-400 shrink-0">
+            <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400 shrink-0">
               {server.type === 'MCP Client' ? <Terminal className="h-5 w-5" /> : <Code className="h-5 w-5" />}
             </div>
             <div className="min-w-0 flex-1">
@@ -268,10 +268,11 @@ const MCPCatalog: React.FC = () => {
             title="MCP Catalog"
             description="Discover Model Context Protocol (MCP) clients and servers for your AI agents."
             icon={Database}
+            accent="emerald"
         />
 
         {/* Search and Filters */}
-        <div className="sticky top-20 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-8 shadow-sm">
+        <div className="sticky top-20 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-8 shadow-xs">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -370,7 +371,7 @@ const MCPCatalog: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                  {displayedServers.map(renderCard)}
             </div>
             
@@ -404,7 +405,7 @@ const MCPCatalog: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20 border-t border-gray-100 dark:border-gray-800 pt-12">
             <div>
                 <div className="flex items-center gap-2 mb-4 px-1">
-                    <TrendingUp className="h-5 w-5 text-purple-500" />
+                    <TrendingUp className="h-5 w-5 text-emerald-500" />
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">Popular Resources</h3>
                 </div>
                 <div className="space-y-3">

@@ -83,7 +83,7 @@ export default function ReviewSection({ targetId, targetType }: ReviewSectionPro
 
       {/* Write Review */}
       {user ? (
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rate this tool</label>
             <div className="flex gap-1">

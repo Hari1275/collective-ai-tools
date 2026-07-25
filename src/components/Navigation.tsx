@@ -98,7 +98,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-900/60">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm supports-backdrop-filter:bg-white/60 dark:supports-backdrop-filter:bg-gray-900/60">
       <div className="w-full px-4 sm:px-6 lg:px-8 py-3">
         {/* Universal Header Bar */}
         <div className="flex items-center justify-between">
@@ -113,10 +113,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
               </button>
               
               <Link to="/" className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
                     C
                 </div>
-                <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-lg font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     Collective AI
                 </h1>
               </Link>
@@ -149,21 +149,21 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
           {/* Sidebar Overlay */}
           {isMobileMenuOpen && (
             <div 
-              className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity"
+              className="fixed inset-0 z-60 bg-black/50 backdrop-blur-xs transition-opacity"
               onClick={() => setIsMobileMenuOpen(false)}
             />
           )}
 
           {/* Sidebar Drawer */}
           <div className={cn(
-              "fixed top-0 left-0 z-[70] h-full w-[280px] bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-300 ease-in-out overflow-y-auto shadow-2xl",
+              "fixed top-0 left-0 z-70 h-full w-[280px] bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-300 ease-in-out overflow-y-auto shadow-2xl",
               isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           )}>
                <div className="p-4 flex flex-col h-full">
                   {/* Drawer Header */}
                   <div className="flex items-center justify-between mb-6">
                       <Link to="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
                               C
                           </div>
                           <span className="text-lg font-bold text-gray-900 dark:text-white">Collective AI</span>

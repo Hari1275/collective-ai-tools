@@ -47,7 +47,7 @@ const ToolRating = memo<ToolRatingProps>(({
         <button
           key={starRating}
           type="button"
-          className="focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+          className="focus:outline-hidden focus:ring-2 focus:ring-blue-500 rounded"
           onClick={() => handleRatingClick(starRating)}
           onMouseEnter={() => handleMouseEnter(starRating)}
           onMouseLeave={handleMouseLeave}

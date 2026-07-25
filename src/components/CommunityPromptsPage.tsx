@@ -16,7 +16,7 @@ const CommunityPromptsPage: React.FC = () => {
         title="Prompts Library"
         description="Discover, rate, and share the best AI prompts for coding, writing, and productivity."
         icon={MessageSquare}
-        gradient="from-pink-500 to-rose-500"
+        accent="rose"
       />
       
       <CommunityPrompts showHeader={false} />

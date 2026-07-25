@@ -13,6 +13,7 @@ We're thrilled to invite you to this our open-source community dedicated in crea
 ![GitHub license](https://img.shields.io/github/license/Hyraze/collective-ai-tools)
 ![GitHub issues](https://img.shields.io/github/issues/Hyraze/collective-ai-tools)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Hyraze/collective-ai-tools)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FHyraze%2Fai-collective-tools.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FHyraze%2Fai-collective-tools?ref=badge_shield&issueType=license)
 
 [![Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=419835&theme=light)](https://www.producthunt.com/posts/ai-collective-tools)
 
@@ -299,6 +300,7 @@ Use these hashtags in search to filter out the tools
 
 ## Customer Support
 
+- [Hellomatik](https://hellomatik.com) - AI agent platform that turns company knowledge into agents that answer, sell and book across WhatsApp, email and web. `#paid`
 - [Tongyi Xiaomi](https://tongyi.aliyun.com/) - Outbound calling and dialogue robots for business. ``
 
 **[⬆️ Back to Top](#table-of-contents)**
@@ -401,6 +403,7 @@ Use these hashtags in search to filter out the tools
 ## Developer Tools
 
 - [AI Code Reviewer](https://ai-code-reviewer.com/) - Efficient automated code review solution. ``
+- [Agent Island](https://github.com/tristan666666/agent-island) - Open-source status companion for Claude Code and Codex sessions on macOS and Windows, with live state and your-turn alerts. `#free` `#opensource`
 - [agent-qa](https://github.com/vostride/agent-qa) - Self-improving QA agent for web and mobile apps with natural-language tests, run memory, and regression detection. `#opensource`
 - [Aider](https://aider.chat/) - AI pair programmer that edits code in your local git repo `#free`
 - [Airops](https://www.airops.com/) - Task-specific AI Apps that go beyond Chat-GPT—run NLP, generate-data-informed content, draft/fix/optimize SQL queries, and more `#free`
@@ -408,6 +411,7 @@ Use these hashtags in search to filter out the tools
 - [aiXcoder](https://www.aixcoder.com/) - Chinese deep learning software dev assistant. ``
 - [AskCodi](https://www.askcodi.com/) - Code generation and refactoring assistant. `#free`
 - [Augment Code](https://augmentcode.com/) - Industry-leading context engine for developers. ``
+- [Better Agent](https://github.com/ofekron/better-agent) - Local workspace for Claude, Codex, and Gemini coding-agent sessions with parallel forks and restart recovery. `#free`
 - [Blackbox AI](https://www.blackbox.ai/) - AI-powered code completion and generation that works in over 20 languages. `#freemium`
 - [BLACKBOX AI](https://www.blackbox.ai/) - Trusted code auto-completion for enterprises. ``
 - [Bolt.new](https://bolt.new/) - AI-powered full-stack web development platform `#freemium`

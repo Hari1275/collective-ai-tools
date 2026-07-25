@@ -29,7 +29,7 @@ function Skeletons({ count }: { count: number }) {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="h-40 rounded-2xl bg-black/[0.03] dark:bg-white/[0.04] animate-pulse" />
+        <div key={i} className="h-40 rounded-2xl bg-black/3 dark:bg-white/4 animate-pulse" />
       ))}
     </>
   );
@@ -110,7 +110,7 @@ export function DiscoverBrowse() {
                   'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors',
                   active
                     ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                    : 'text-gray-600 hover:bg-black/[0.05] dark:text-gray-300 dark:hover:bg-white/[0.06]',
+                    : 'text-gray-600 hover:bg-black/5 dark:text-gray-300 dark:hover:bg-white/6',
                 )}
               >
                 {f.key !== 'all' && <span className={cn('h-1.5 w-1.5 rounded-full', TYPE_ACCENT[f.key].dot)} />}

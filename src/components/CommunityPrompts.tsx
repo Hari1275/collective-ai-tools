@@ -117,17 +117,17 @@ const CommunityPrompts: React.FC<CommunityPromptsProps> = ({ showHeader = true }
     : prompts.filter(p => p.source === activeFilter);
 
   return (
-    <section className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50 relative">
+    <section className="relative">
       <div className={cn("relative overflow-hidden", showHeader ? "py-20 lg:py-32" : "pb-12 pt-0")}>
         {/* ... Hero Section code remains ... */}
-        <div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-800/20 [mask-image:linear-gradient(0deg,transparent,black)] pointer-events-none" />
+        <div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-800/20 mask-[linear-gradient(0deg,transparent,black)] pointer-events-none" />
         {showHeader && (
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <Badge variant="outline" className="mb-6 px-4 py-1.5 rounded-full text-sm border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-900 dark:bg-blue-900/30 dark:text-blue-300">
              <Sparkles className="w-3.5 h-3.5 mr-2 inline-block" />
              Explore Community Wisdom
           </Badge>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-200 dark:to-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-200 dark:to-white mb-6">
             Discover the Best AI Prompts
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
@@ -140,7 +140,7 @@ const CommunityPrompts: React.FC<CommunityPromptsProps> = ({ showHeader = true }
           {/* Search & Filter Bar */}
           <div className="max-w-2xl mx-auto">
             <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-200" />
+                <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-cyan-600 rounded-2xl blur-sm opacity-25 group-hover:opacity-40 transition duration-200" />
                 <div className="relative flex items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-2">
                     <Search className="ml-4 h-5 w-5 text-gray-400" />
                     <Input 
@@ -175,11 +175,11 @@ const CommunityPrompts: React.FC<CommunityPromptsProps> = ({ showHeader = true }
         {loading ? (
              <div className="text-center py-20 animate-pulse text-gray-500">Loading prompts...</div>
         ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredPrompts.map(prompt => (
                     <Card 
                         key={prompt._id} 
-                        className="group flex flex-col h-full bg-white dark:bg-gray-800/40 backdrop-blur-sm border-gray-200 dark:border-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-400/30 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                        className="group flex flex-col h-full bg-white dark:bg-gray-800/40 backdrop-blur-xs border-gray-200 dark:border-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-400/30 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
                         onClick={() => setSelectedPrompt(prompt)}
                     >
                         <CardHeader className="pb-3">
@@ -254,7 +254,7 @@ const CommunityPrompts: React.FC<CommunityPromptsProps> = ({ showHeader = true }
              onClick={(e) => { if (e.target === e.currentTarget) setSelectedPrompt(null); }}
              onKeyDown={(e) => { if (e.key === 'Escape') { setSelectedPrompt(null); } }}
            >
-               <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" />
+               <div className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity" />
                <div 
                  className="relative w-full max-w-2xl bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-200"
                >

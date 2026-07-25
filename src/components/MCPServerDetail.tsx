@@ -124,7 +124,7 @@ const MCPServerSidebar: React.FC<{
           <ul className="space-y-2">
             {(server.requirements || []).map((requirement, index) => (
               <li key={index} className="flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-orange-500 flex-shrink-0" />
+                <AlertCircle className="h-4 w-4 text-orange-500 shrink-0" />
                 <span className="text-gray-700 dark:text-gray-300">{requirement}</span>
               </li>
             ))}
@@ -163,10 +163,10 @@ const MCPServerSidebar: React.FC<{
 );
 
 const ContributorCTA: React.FC<{ serverName: string; githubUrl?: string }> = ({ serverName, githubUrl }) => (
-  <div className="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800">
+  <div className="mt-16 bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800">
     <div className="text-center">
       <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="p-2 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg">
+        <div className="p-2 bg-linear-to-r from-green-500 to-blue-500 rounded-lg">
           <Heart className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Found this server helpful?</h3>
@@ -177,7 +177,7 @@ const ContributorCTA: React.FC<{ serverName: string; githubUrl?: string }> = ({ 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <Button
           onClick={() => githubUrl && window.open(withUtm(githubUrl), '_blank')}
-          className="flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
+          className="flex items-center gap-2 bg-linear-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
           disabled={!githubUrl}
         >
           <Star className="h-4 w-4" />
@@ -377,11 +377,11 @@ const MCPServerDetail: React.FC = () => {
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-6">
             <div className="flex items-center gap-4 flex-1">
-              <div className="p-4 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-2xl text-blue-600 dark:text-blue-400 shadow-lg">
+              <div className="p-4 bg-linear-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-2xl text-blue-600 dark:text-blue-400 shadow-lg">
                 <Code className="h-10 w-10" />
               </div>
               <div className="flex-1">
-                <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                <h1 className="text-3xl sm:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                   {server.name}
                 </h1>
                 <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -392,7 +392,7 @@ const MCPServerDetail: React.FC = () => {
             <div className="flex items-center gap-3">
               <Button
                 onClick={() => server.githubUrl && window.open(withUtm(server.githubUrl), '_blank')}
-                className="flex items-center gap-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white"
+                className="flex items-center gap-2 bg-linear-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white"
                 disabled={!server.githubUrl}
               >
                 <GitBranch className="h-4 w-4" />
@@ -511,7 +511,7 @@ const MCPServerDetail: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {(server.features || []).map((feature, index) => (
                     <div key={index} className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
                       <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                     </div>
                   ))}

@@ -50,7 +50,7 @@ const ToolFilters: React.FC<ToolFiltersProps> = ({
             placeholder="Search for a tool..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"
           />
         </div>
 
@@ -61,7 +61,7 @@ const ToolFilters: React.FC<ToolFiltersProps> = ({
             <select
               value={selectedCategory}
               onChange={(e) => onCategoryChange(e.target.value)}
-              className="block w-full pl-3 pr-10 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+              className="block w-full pl-3 pr-10 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
             >
               <option value="">All Categories</option>
               {allCategories.map((category) => (

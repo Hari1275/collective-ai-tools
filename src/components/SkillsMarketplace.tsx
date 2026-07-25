@@ -144,13 +144,13 @@ const SkillsMarketplace: React.FC = () => {
   const hasFilters = search || activeCategory;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-20 px-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <PageHeader
           title="Skills Marketplace"
           description="Discover and install agent skills to supercharge your AI coding workflow."
           icon={Puzzle}
-          gradient="from-violet-600 to-indigo-500"
+          accent="violet"
         />
 
         {/* Search + Filters */}
@@ -163,7 +163,7 @@ const SkillsMarketplace: React.FC = () => {
                 placeholder="Search skills, authors, tags..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500"
+                className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500"
               />
             </div>
             {hasFilters && (
@@ -213,9 +213,9 @@ const SkillsMarketplace: React.FC = () => {
         </div>
 
         {/* Results */}
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
@@ -249,7 +249,7 @@ const SkillsMarketplace: React.FC = () => {
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 {skills.length} skill{skills.length !== 1 ? 's' : ''} found
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {skills.map((skill) => {
                   const CategoryIcon = categoryIcons[skill.category] || Code;
                   return (
@@ -260,7 +260,7 @@ const SkillsMarketplace: React.FC = () => {
                       {/* Header */}
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="flex-shrink-0 p-2 rounded-lg bg-violet-50 dark:bg-violet-500/10">
+                          <div className="shrink-0 p-2 rounded-lg bg-violet-50 dark:bg-violet-500/10">
                             <CategoryIcon className="h-4 w-4 text-violet-600 dark:text-violet-400" />
                           </div>
                           <div className="min-w-0">
@@ -277,7 +277,7 @@ const SkillsMarketplace: React.FC = () => {
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 flex-shrink-0">
+                        <div className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 shrink-0">
                           <Star className="h-3.5 w-3.5 text-amber-500" />
                           <span className="font-medium text-gray-700 dark:text-gray-300 text-xs">
                             {formatStars(skill.stars)}
@@ -369,7 +369,7 @@ const SkillsMarketplace: React.FC = () => {
 
         {/* Bottom CTA */}
         <div className="max-w-5xl mx-auto mt-16">
-          <div className="rounded-2xl border border-violet-200 dark:border-violet-500/20 bg-gradient-to-br from-violet-50/80 to-indigo-50/80 dark:from-violet-500/5 dark:to-indigo-500/5 p-8 text-center">
+          <div className="rounded-2xl border border-violet-200 dark:border-violet-500/20 bg-linear-to-br from-violet-50/80 to-indigo-50/80 dark:from-violet-500/5 dark:to-indigo-500/5 p-8 text-center">
             <Terminal className="h-10 w-10 text-violet-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
               Have a skill to share?

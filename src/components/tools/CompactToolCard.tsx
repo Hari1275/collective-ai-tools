@@ -36,9 +36,9 @@ const CompactToolCard: React.FC<CompactToolCardProps> = ({ tool, rank, onTrackCl
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleCardClick}
-      className="group relative flex items-center gap-4 p-4 pr-12 rounded-2xl bg-white/40 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 hover:shadow-lg min-h-[5.5rem] no-underline"
+      className="group relative flex items-center gap-4 p-4 pr-12 rounded-2xl bg-white/40 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 cursor-pointer hover:-translate-y-0.5 hover:shadow-lg min-h-22 no-underline"
     >
-      <div className="flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center shadow-sm bg-gradient-to-br from-blue-500 to-cyan-500 text-white font-bold text-sm">
+      <div className="shrink-0 h-10 w-10 rounded-xl flex items-center justify-center shadow-xs bg-linear-to-br from-blue-500 to-cyan-500 text-white font-bold text-sm">
         {rank ? `#${rank}` : <ExternalLink className="h-5 w-5" />}
       </div>
       

@@ -22,19 +22,19 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
     <div
       className={cn(
         'group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl p-4',
-        'border border-black/[0.06] dark:border-white/10',
-        'bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl',
-        'shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+        'border border-black/6 dark:border-white/10',
+        'bg-white/80 dark:bg-white/4 backdrop-blur-xl',
+        'shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
         accent.ring,
         accent.glow,
       )}
     >
-      <span className={cn('absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r opacity-80', accent.bar)} />
+      <span className={cn('absolute inset-x-0 top-0 h-0.5 bg-linear-to-r opacity-80', accent.bar)} />
       <div className="flex items-start gap-3">
         <div
           aria-hidden="true"
           className={cn(
-            'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-sm font-bold tracking-tight text-white shadow-sm transition-transform duration-300 group-hover:scale-105',
+            'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-linear-to-br text-sm font-bold tracking-tight text-white shadow-xs transition-transform duration-300 group-hover:scale-105',
             accent.bar,
           )}
         >
@@ -68,7 +68,7 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
           {item.tags.slice(0, 3).map((t) => (
             <span
               key={t}
-              className="rounded-md bg-black/[0.04] px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:bg-white/[0.06] dark:text-gray-300"
+              className="rounded-md bg-black/4 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:bg-white/6 dark:text-gray-300"
             >
               {t}
             </span>
@@ -78,7 +78,7 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
     </div>
   );
 
-  const wrapper = 'discover-in block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500';
+  const wrapper = 'discover-in block h-full rounded-2xl focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500';
 
   if (item.external) {
     return (

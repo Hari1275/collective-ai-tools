@@ -12,14 +12,14 @@ const TrendingPage: React.FC = () => {
         description="Discover the hottest AI projects and libraries on GitHub, updated daily."
       />
       
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-20 px-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           
           <PageHeader
             title="Trending AI Repositories"
             description="Stay ahead of the curve with daily trending AI libraries and tools."
             icon={GitBranch}
-            gradient="from-green-600 to-teal-500"
+            accent="amber"
           />
 
           <div className="max-w-5xl mx-auto">

@@ -56,7 +56,7 @@ const BackToTop: React.FC<BackToTopProps> = ({
         "hover:bg-primary/90",
         "shadow-lg hover:shadow-xl",
         "transition-all duration-300 ease-in-out",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         "transform hover:scale-110",
         "border border-border/20",
         className

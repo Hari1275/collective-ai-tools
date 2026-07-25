@@ -23,7 +23,7 @@ const AlertModal: React.FC<{
 }> = ({ open, title, message, type, onClose }) => {
   if (!open) return null;
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-60 flex items-center justify-center p-4">
       <div className="bg-card border border-border rounded-xl w-full max-w-sm p-6 shadow-2xl slide-in-from-bottom-2 animate-in fade-in duration-300">
         <h3 className={`text-lg font-bold mb-2 ${type === 'error' ? 'text-red-500' : 'text-green-500'}`}>{title}</h3>
         <p className="text-muted-foreground mb-6">{message}</p>
@@ -44,7 +44,7 @@ const ConfirmModal: React.FC<{
 }> = ({ open, title, message, onConfirm, onCancel }) => {
   if (!open) return null;
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-60 flex items-center justify-center p-4">
       <div className="bg-card border border-border rounded-xl w-full max-w-sm p-6 shadow-2xl slide-in-from-bottom-2 animate-in fade-in duration-300">
         <h3 className="text-lg font-bold text-foreground mb-2">{title}</h3>
         <p className="text-muted-foreground mb-6">{message}</p>
@@ -68,7 +68,7 @@ const SaveModal: React.FC<{
 }> = ({ open, name, isPublic, onNameChange, onPublicChange, onSave, onClose }) => {
   if (!open) return null;
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
       <div className="bg-card border border-border rounded-xl w-full max-w-md p-6 shadow-2xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-bold text-foreground">Save Pattern</h2>
@@ -468,13 +468,13 @@ const PatternStudio: React.FC = () => {
             <Layers className="w-4 h-4 text-blue-500" /> Prompt Studio
          </div>
          <div className="flex bg-secondary rounded p-1">
-            <button onClick={() => setMobileTab('sidebar')} className={`p-1.5 rounded ${mobileTab === 'sidebar' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`} title="Patterns">
+            <button onClick={() => setMobileTab('sidebar')} className={`p-1.5 rounded ${mobileTab === 'sidebar' ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground'}`} title="Patterns">
                 <Menu className="w-4 h-4" />
             </button>
-            <button onClick={() => setMobileTab('input')} className={`p-1.5 rounded ${mobileTab === 'input' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`} title="Input">
+            <button onClick={() => setMobileTab('input')} className={`p-1.5 rounded ${mobileTab === 'input' ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground'}`} title="Input">
                 <FileText className="w-4 h-4" />
             </button>
-            <button onClick={() => setMobileTab('output')} className={`p-1.5 rounded ${mobileTab === 'output' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`} title="Output/Run">
+            <button onClick={() => setMobileTab('output')} className={`p-1.5 rounded ${mobileTab === 'output' ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground'}`} title="Output/Run">
                 <SquareTerminal className="w-4 h-4" />
             </button>
          </div>
@@ -505,7 +505,7 @@ const PatternStudio: React.FC = () => {
                   <button 
                     key={f}
                     onClick={() => setFilterSource(f)}
-                    className={`flex-1 text-[10px] uppercase tracking-wider font-bold py-1.5 rounded-md transition-colors ${filterSource === f ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                    className={`flex-1 text-[10px] uppercase tracking-wider font-bold py-1.5 rounded-md transition-colors ${filterSource === f ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                   >
                     {f}
                   </button>
@@ -515,7 +515,7 @@ const PatternStudio: React.FC = () => {
           <div className="relative mt-4">
             <Search className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
             <input 
-              className="w-full bg-muted/30 border border-border rounded-md py-2 pl-9 pr-3 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+              className="w-full bg-muted/30 border border-border rounded-md py-2 pl-9 pr-3 text-xs text-foreground focus:outline-hidden focus:ring-1 focus:ring-primary transition-all"
               placeholder="Search patterns..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -670,7 +670,7 @@ const PatternStudio: React.FC = () => {
                 
                 <div className="flex-1 relative">
                     <textarea 
-                       className={`absolute inset-0 w-full h-full bg-transparent p-6 resize-none focus:outline-none font-mono text-sm text-foreground placeholder:text-muted-foreground/30 z-10 ${isDragging ? 'pointer-events-none' : ''}`}
+                       className={`absolute inset-0 w-full h-full bg-transparent p-6 resize-none focus:outline-hidden font-mono text-sm text-foreground placeholder:text-muted-foreground/30 z-10 ${isDragging ? 'pointer-events-none' : ''}`}
                        placeholder="Paste your content here (article, code, email)... or dragging files directly."
                        value={userInput}
                        onChange={(e) => setUserInput(e.target.value)}
@@ -726,7 +726,7 @@ const PatternStudio: React.FC = () => {
                        <Button 
                           onClick={runPattern}
                           size="sm"
-                          className={`h-7 text-xs gap-2 bg-green-600 hover:bg-green-500 text-white border-none shadow-sm transition-all`}
+                          className={`h-7 text-xs gap-2 bg-green-600 hover:bg-green-500 text-white border-none shadow-xs transition-all`}
                           disabled={loadingContent || !systemPrompt || !userInput || isRunning}
                        >
                           {isRunning ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3 fill-current" />}
@@ -735,7 +735,7 @@ const PatternStudio: React.FC = () => {
                        <Button 
                           onClick={copyToClipboard}
                           size="sm"
-                          className={`h-7 text-xs gap-2 bg-primary hover:bg-primary/90 text-primary-foreground border-none shadow-sm transition-all`}
+                          className={`h-7 text-xs gap-2 bg-primary hover:bg-primary/90 text-primary-foreground border-none shadow-xs transition-all`}
                           disabled={loadingContent || !systemPrompt}
                        >
                           {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
@@ -774,7 +774,7 @@ const PatternStudio: React.FC = () => {
                               </div>
                               
                               <textarea 
-                                  className="w-full bg-transparent resize-none focus:outline-none text-emerald-600 dark:text-emerald-500/90 h-[300px]"
+                                  className="w-full bg-transparent resize-none focus:outline-hidden text-emerald-600 dark:text-emerald-500/90 h-[300px]"
                                   value={systemPrompt}
                                   onChange={(e) => setSystemPrompt(e.target.value)}
                                   placeholder="Enter system instructions here..."
@@ -836,7 +836,7 @@ const PatternStudio: React.FC = () => {
 
       {/* SETTINGS MODAL */}
       {isSettingsOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
            <div className="bg-card border border-border rounded-xl w-full max-w-md p-6 shadow-2xl">
               <div className="flex items-center justify-between mb-6">
                  <h2 className="text-lg font-bold text-foreground flex items-center gap-2">

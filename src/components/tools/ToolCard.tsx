@@ -41,7 +41,7 @@ const ToolCard: React.FC<ToolCardProps> = ({
     >
       <div className="bg-white dark:bg-[#020817] border border-gray-200 dark:border-gray-700 rounded-xl p-5 h-full flex flex-col transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg relative">
         <div className="flex items-start justify-between mb-3 gap-2">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex-1 break-words">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex-1 wrap-break-word">
             {tool.name}
           </h3>
             <div className="flex gap-2">
@@ -82,7 +82,7 @@ const ToolCard: React.FC<ToolCardProps> = ({
             </div>
           </div>
 
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 flex-grow">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 grow">
           {tool.description}
         </p>
 

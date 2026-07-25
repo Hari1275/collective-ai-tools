@@ -101,7 +101,7 @@ const AdminPrompts = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center bg-card p-6 rounded-lg border shadow-sm">
+      <div className="flex justify-between items-center bg-card p-6 rounded-lg border shadow-xs">
         <div>
             <h2 className="text-2xl font-bold tracking-tight">Prompt Moderation</h2>
             <p className="text-muted-foreground text-sm">Review pending submissions or sync ecosystem prompts.</p>

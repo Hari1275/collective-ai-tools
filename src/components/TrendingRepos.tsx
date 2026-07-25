@@ -80,7 +80,7 @@ const TrendingRepos: React.FC = () => {
             </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {loading ? (
            Array.from({ length: 9 }).map((_, i) => (
              <div key={i} className="h-48 rounded-2xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-gray-800 animate-pulse" />
@@ -101,11 +101,11 @@ const TrendingRepos: React.FC = () => {
                                 <ExternalLink className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 transition-colors" />
                             </div>
 
-                            <h4 className="font-bold text-lg text-gray-900 dark:text-gray-100 mb-2 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 break-words line-clamp-1">
+                            <h4 className="font-bold text-lg text-gray-900 dark:text-gray-100 mb-2 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 wrap-break-word line-clamp-1">
                                  {repo.title.replace(/\s+/g, '')}
                             </h4>
                             
-                            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed h-[4.5rem]">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed h-18">
                                 {repo.cleanDesc}
                             </p>
                         </div>
