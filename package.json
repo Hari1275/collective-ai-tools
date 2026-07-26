@@ -105,7 +105,8 @@
   "pnpm": {
     "overrides": {
       "tar": ">=7.5.3",
-      "undici": ">=5.28.5"
+      "undici": ">=5.28.5",
+      "jsdom>undici": "^7.20.0"
     }
   },
   "msw": {
