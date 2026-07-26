@@ -1,12 +1,22 @@
 import { useEffect, useState } from 'react';
 import AdminDataTable from '../AdminDataTable';
 import { ExternalLink } from 'lucide-react';
+import type {
+  AdminAITool,
+  AdminListParams,
+  AdminListResponse
+} from './types';
 
 export default function AdminAITools() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<AdminAITool[]>([]);
   const [pagination, setPagination] = useState({ page: 1, limit: 10, total: 0, pages: 0 });
   const [loading, setLoading] = useState(true);
-  const [params, setParams] = useState({ page: 1, search: '', sortBy: 'createdAt', order: 'desc' });
+  const [params, setParams] = useState<AdminListParams>({
+    page: 1,
+    search: '',
+    sortBy: 'createdAt',
+    order: 'desc'
+  });
 
   useEffect(() => {
     fetchData();
@@ -23,7 +33,7 @@ export default function AdminAITools() {
         order: params.order
       });
       const res = await fetch(`/api/admin/ai-tools?${query}`);
-      const result = await res.json();
+      const result: AdminListResponse<AdminAITool> = await res.json();
       setData(result.data);
       setPagination(result.pagination);
     } catch (error) {
@@ -35,13 +45,20 @@ export default function AdminAITools() {
 
   const columns = [
     { key: 'name', label: 'Name', sortable: true },
-    { key: 'description', label: 'Description', render: (row: any) => <span className="line-clamp-1" title={row.description}>{row.description}</span> },
-    { key: 'url', label: 'Link', render: (row: any) => (
+    { key: 'description', label: 'Description', render: (row: AdminAITool) => (
+      <span className="line-clamp-1" title={row.description}>{row.description}</span>
+    )},
+    { key: 'url', label: 'Link', render: (row: AdminAITool) => (
         <a href={row.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-500">
             <ExternalLink className="h-4 w-4" />
         </a>
     )},
-    { key: 'addedDate', label: 'Added', sortable: true, render: (row: any) => new Date(row.addedDate).toLocaleDateString() }
+    {
+      key: 'addedDate',
+      label: 'Added',
+      sortable: true,
+      render: (row: AdminAITool) => new Date(row.addedDate).toLocaleDateString()
+    }
   ];
 
   return (
