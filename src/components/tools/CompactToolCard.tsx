@@ -68,7 +68,7 @@ const CompactToolCard: React.FC<CompactToolCardProps> = ({ tool, rank, onTrackCl
         </div>
       </div>
       
-      <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+      <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-60 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
         <ExternalLink className="h-4 w-4 text-gray-400 dark:text-gray-300" />
       </div>
     </a>
