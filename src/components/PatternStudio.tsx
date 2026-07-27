@@ -553,7 +553,7 @@ const PatternStudio: React.FC = () => {
                             {activeItem?.name === item.id && <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />}
                             <Trash2 
                                 onClick={(e) => deleteCustomPattern(e, item.id)}
-                                className="w-3 h-3 text-gray-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" 
+                                className="w-6 h-6 p-1.5 shrink-0 cursor-pointer text-gray-600 hover:text-red-500 opacity-60 hover:opacity-100 group-hover:opacity-100 transition-opacity"
                             />
                           </div>
                         </button>
@@ -679,7 +679,7 @@ const PatternStudio: React.FC = () => {
                     
                     {/* Drag Overlay Helper */}
                     {!userInput && !isDragging && (
-                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity">
                           <div className="text-gray-800 flex flex-col items-center gap-2">
                              <FileText className="w-12 h-12" />
                              <span className="text-xs font-mono">DROP FILES HERE</span>
