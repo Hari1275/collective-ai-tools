@@ -742,6 +742,7 @@ Use these hashtags in search to filter out the tools
 - [Flux Pro](https://flux.ai/) - High-quality image generation with fine-tuned control and consistency `#freemium`
 - [FollowFox](https://followfox.ai/) - Open-source text-to-image generator with impressive features and capabilities. `#free`
 - [GenPictures](https://www.getconverse.com/pics) - Create stunning AI art, images, and pictures in seconds for free with GenPictures. Turn your text into visual masterpieces effortlessly. `#freemium`
+- [GPT Image 2](https://gptimage2.asia/) - Generate and edit AI images for marketing, ecommerce, social media, and branded visuals. `#freemium` `#design`
 - [ID Photo API AI](https://idphoto.ai/) - Passport Photo API to convert regular photo to passport photo. `#freemium`
 - [Ideaogram](https://ideogram.ai/t/trending) - This tool helps us to generate text in an image `#free`
 - [Ideogram 2.0](https://ideogram.ai/) - Advanced text-to-image generator with superior text rendering capabilities `#freemium`
