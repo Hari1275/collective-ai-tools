@@ -1250,6 +1250,7 @@ Use these hashtags in search to filter out the tools
 - [Wen Zhuangyuan](https://wenzhuangyuan.com/) - Political hotspot official document assistant. 139 ``
 - [Wensi Assistant](https://wensi.ai/) - Office document writing and thinking asst. 132 ``
 - [Wenyong Effidit](https://effidit.qq.com/) - Tencent AI Lab professional research prototype. 86 `#free`
+- [WizGenerator Story Generator](https://wizgenerator.com/tools/story-generator/) - Generates complete fiction drafts from a premise with genre, tone, length, and point-of-view controls. `#free` `#writing`
 - [Wonderful Wen](https://miaobi.com/) - Comprehensive service platform for text workers. 107 ``
 - [Wordvice AI](https://wordvice.ai/) - Grammar checking and academic polishing tool. 102 `#free`
 - [WPS Intelligent Writing](https://ai.wps.cn/) - Online assistant for daily article generation. 99 ``
