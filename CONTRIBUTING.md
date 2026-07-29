@@ -2,10 +2,6 @@
 
 First off, thank you for considering contributing! It's people like you that make Collective AI Tools such a great resource. We welcome any type of contribution, not only code.
 
-## Working on the frontend without backend access
-
-The backend is closed-source, but you don't need it to work on the frontend. Running `pnpm dev` mocks the API by default (via [MSW](https://mswjs.io)) with realistic fixture data, so the app runs fully offline — browsing, search, login, and submitting a tool all work against mocked responses. See `src/mocks/` for the fixtures and handlers.
-
 ## How Can I Contribute?
 
 The most common and impactful way to contribute is by adding new AI tools to our list. Our `README.md` file is the single source of truth for all the tools listed on the [collectiveai.tools](https://collectiveai.tools) website.
@@ -72,5 +68,45 @@ The most common and impactful way to contribute is by adding new AI tools to our
     ```
 
 7.  **Create a Pull Request:** Go to the original repository on GitHub. You should see a button to create a new Pull Request from your forked branch. Fill out the PR template with details about your addition.
+
+## Contributing Code
+
+Beyond tool listings, bug fixes, features, and improvements to the actual app (frontend) are very welcome. Check the [issue tracker](https://github.com/Hyraze/collective-ai-tools/issues) for open work, especially anything labeled `good first issue`.
+
+### Prerequisites
+
+- Node.js >= 20
+- pnpm >= 8
+
+### Setup
+
+```bash
+git clone https://github.com/YOUR_USERNAME/collective-ai-tools.git
+cd collective-ai-tools
+pnpm install
+pnpm dev
+```
+
+The backend is closed-source, but you don't need it to work on the frontend. `pnpm dev` mocks the API by default (via [MSW](https://mswjs.io)) with realistic fixture data, so the app runs fully offline — browsing, search, login, and submitting a tool all work against mocked responses. See `src/mocks/` for the fixtures and handlers.
+
+### Before opening a PR
+
+```bash
+pnpm type-check   # TypeScript
+pnpm lint:check   # ESLint
+pnpm test         # Vitest
+```
+
+All three should pass. `pnpm lint` (without `:check`) auto-fixes what it can.
+
+### Commit messages
+
+Loosely conventional: `feat:`, `fix:`, `ref:` (refactor), `docs:`, `chore:`. Doesn't need to be strict — just descriptive of what changed.
+
+### Opening a PR
+
+- Keep it focused: one fix or feature per PR
+- Describe what changed and why
+- Link the related issue if there is one
 
 Thank you for your contribution!

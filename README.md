@@ -457,6 +457,7 @@ Use these hashtags in search to filter out the tools
 - [Junie](https://www.jetbrains.com/junie/) - JetBrains context-aware IDE assistant. ``
 - [Keploy](https://keploy.io/) - AI-powered automation API and Unit testing, latest UTG pr agent generates unit tests after each pr. `#free`
 - [Keploy](https://www.keploy.io/) - A  developer-centric backend testing tool which makes backend tests with built-in-mocks faster than unit tests, from user traffic, making it easy to use, powerful, and extensible. `#opensource`
+- [LangChain](https://www.langchain.com/) - Open-source framework for building LLM-powered applications and agents, with 1000+ integrations. `#free` `#opensource`
 - [Lintrule](https://www.lintrule.com/) - Supercharge Code Reviews and Policy Enforcement `#paid`
 - [Lovable](https://lovable.dev/) - Generating full-stack apps via Supabase/GitHub. ``
 - [MarsX](https://www.marsx.dev/) - MicroApps and no-code software development. ``
@@ -1175,6 +1176,7 @@ Use these hashtags in search to filter out the tools
 - [Tongyi Wanxiang AI](https://wanxiang.aliyun.com/) - Alibaba high-definition film-quality videos. `#free`
 - [Unscreen](https://www.unscreen.com/) - 100% automatic online background removal. `#free`
 - [Veed Background](https://www.veed.io/tools/background-remover) - Online background removal and green-screen. `#free`
+- [Veo](https://deepmind.google/models/veo/) - Google DeepMind's text-to-video model (currently Veo 3.1), generates cinematic video with synchronized audio and realistic physics. `#paid`
 - [Video Ocean](https://videoocean.com/) - Text-to-video scene simulation platform. `#free`
 - [Vidnoz](https://www.vidnoz.com/) - Use Vidnoz AI and Vidnoz Flex to make winning videos! `#freemium`
 - [Vidu](https://www.vidu.studio/) - Long-duration video large model (Tsinghua). `#free`
