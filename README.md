@@ -230,6 +230,7 @@ Use these hashtags in search to filter out the tools
 - [Gemini 2.0](https://gemini.google.com/) - Google's latest multimodal AI model with advanced reasoning and creative capabilities `#free`
 - [Google AI Studio](https://aistudio.google.com/prompts/new_chat) - An experimental AI chatbot by Google. `#free`
 - [GPT-4o](https://openai.com/gpt-4o) - OpenAI's flagship model with vision, audio, and text capabilities in a single model `#freemium`
+- [GPTGeminiGrok.AI](https://trygrokai.asia/) - Browser workspace for GPT, Gemini, Grok, Claude, and AI image workflows. `#free`
 - [Groq](https://groq.com/) - Lightning-fast AI inference platform with real-time response capabilities `#freemium`
 - [Huawei Xiaoyi](https://consumer.huawei.com/en/ai/) - PC and mobile assistant with DeepSeek-R1. 56 `#free`
 - [HuggingChat](https://huggingface.co/chat) - Open-source AI chat interface powered by Hugging Face models. `#free`
