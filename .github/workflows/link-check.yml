@@ -28,6 +28,12 @@ jobs:
           node-version: 20.x
           cache: 'pnpm'
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
       - name: Check README links
         id: check
         run: node scripts/check-links.js

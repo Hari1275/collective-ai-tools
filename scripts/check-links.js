@@ -2,21 +2,18 @@
  * @license
  * MIT
  * Collective AI Tools (https://collectiveai.tools)
- *
- * Checks every markdown link in README.md and reports broken ones.
- * Writes broken-links-report.json for CI to pick up; exits non-zero when
- * any broken links are found.
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { chromium } from 'playwright';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const README_PATH = path.join(__dirname, '../README.md');
 const REPORT_PATH = path.join(__dirname, '../broken-links-report.json');
 
-const CONCURRENCY = 10;
-const TIMEOUT_MS = 10000;
+const CONCURRENCY = 5;
+const NAV_TIMEOUT_MS = 20000;
 const USER_AGENT =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -30,65 +27,59 @@ function extractLinks(readmeContent) {
   return links;
 }
 
-async function checkLink(link) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+async function checkLink(browser, link) {
+  const page = await browser.newPage({ userAgent: USER_AGENT });
   try {
-    let response;
-    try {
-      response = await fetch(link.url, {
-        method: 'HEAD',
-        signal: controller.signal,
-        headers: { 'User-Agent': USER_AGENT },
-      });
-    } catch {
-      // Some servers block HEAD or the initial attempt times out — retry with GET.
-      const controllerGet = new AbortController();
-      const timeoutIdGet = setTimeout(() => controllerGet.abort(), TIMEOUT_MS);
-      response = await fetch(link.url, {
-        method: 'GET',
-        signal: controllerGet.signal,
-        headers: { 'User-Agent': USER_AGENT },
-      });
-      clearTimeout(timeoutIdGet);
-    }
-    clearTimeout(timeoutId);
+    const response = await page.goto(link.url, {
+      waitUntil: 'networkidle',
+      timeout: NAV_TIMEOUT_MS,
+    });
 
-    if (!response.ok) {
-      if (response.status === 403 || response.status === 429) {
-        // Bot-protection false positives — surfaced separately, not treated as dead.
-        return { link, warning: response.status };
-      }
-      return { link, broken: true, status: response.status };
+    if (!response) {
+      return { link, broken: true, error: 'No response from navigation' };
+    }
+
+    const status = response.status();
+    if (status === 403 || status === 429) {
+      return { link, warning: status };
+    }
+    if (!response.ok()) {
+      return { link, broken: true, status };
     }
     return { link, ok: true };
   } catch (error) {
-    clearTimeout(timeoutId);
     return { link, broken: true, error: error.message };
+  } finally {
+    await page.close();
   }
 }
 
 async function main() {
   const readmeContent = fs.readFileSync(README_PATH, 'utf-8');
   const links = extractLinks(readmeContent);
-  console.log(`Found ${links.length} links to check.`);
+  console.log(`Found ${links.length} links to check (browser-based, this will take a while).`);
 
+  const browser = await chromium.launch();
   const broken = [];
   const warnings = [];
 
-  for (let i = 0; i < links.length; i += CONCURRENCY) {
-    const chunk = links.slice(i, i + CONCURRENCY);
-    const results = await Promise.all(chunk.map(checkLink));
-    for (const result of results) {
-      if (result.broken) {
-        broken.push({ ...result.link, status: result.status, error: result.error });
-        console.error(`Broken: [${result.link.title}](${result.link.url}) - ${result.status ?? result.error}`);
-      } else if (result.warning) {
-        warnings.push({ ...result.link, status: result.warning });
-      } else {
-        process.stdout.write('.');
+  try {
+    for (let i = 0; i < links.length; i += CONCURRENCY) {
+      const chunk = links.slice(i, i + CONCURRENCY);
+      const results = await Promise.all(chunk.map((link) => checkLink(browser, link)));
+      for (const result of results) {
+        if (result.broken) {
+          broken.push({ ...result.link, status: result.status, error: result.error });
+          console.error(`Broken: [${result.link.title}](${result.link.url}) - ${result.status ?? result.error}`);
+        } else if (result.warning) {
+          warnings.push({ ...result.link, status: result.warning });
+        } else {
+          process.stdout.write('.');
+        }
       }
     }
+  } finally {
+    await browser.close();
   }
 
   console.log(`\n\nChecked ${links.length} links: ${broken.length} broken, ${warnings.length} bot-blocked (not counted as dead).`);
