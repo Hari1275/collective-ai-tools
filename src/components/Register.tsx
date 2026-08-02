@@ -85,24 +85,40 @@ export default function Register() {
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="flex justify-center">
-            <GoogleLogin
-              onSuccess={async (credentialResponse) => {
-                if (credentialResponse.credential) {
-                  setError('');
-                  try {
-                    await loginWithGoogle(credentialResponse.credential);
-                    sessionStorage.removeItem('authRedirect');
-                    navigate(from, { replace: true });
-                  } catch (err: any) {
-                    setError(err.message);
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-full max-w-[320px]">
+              <GoogleLogin
+                theme="outline"
+                shape="rectangular"
+                text="continue_with"
+                size="large"
+                width="320"
+                onSuccess={async (credentialResponse) => {
+                  if (credentialResponse.credential) {
+                    setError('');
+                    try {
+                      await loginWithGoogle(credentialResponse.credential);
+                      sessionStorage.removeItem('authRedirect');
+                      navigate(from, { replace: true });
+                    } catch (err: any) {
+                      setError(err.message);
+                    }
                   }
-                }
-              }}
-              onError={() => setError('Google Signup failed')}
-            />
+                }}
+                onError={() => setError('Google Signup failed')}
+              />
+            </div>
+            
+            <button
+              onClick={handleGithubLogin}
+              disabled={loading}
+              className="w-full max-w-[320px] flex justify-center items-center gap-3 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-xs bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 h-[40px]"
+            >
+              <Github className="h-5 w-5" />
+              Sign up with GitHub
+            </button>
           </div>
-          
+
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -115,15 +131,6 @@ export default function Register() {
               </div>
             </div>
           </div>
-          
-          <button
-            onClick={handleGithubLogin}
-            disabled={loading}
-            className="w-full flex justify-center items-center gap-3 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-xs bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mt-3"
-          >
-            <Github className="h-5 w-5" />
-            Sign up with GitHub
-          </button>
         </div>
 
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
