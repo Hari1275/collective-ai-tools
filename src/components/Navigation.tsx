@@ -123,7 +123,15 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
             </div>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link 
+                to={user ? "/submit" : "/login"} 
+                state={!user ? { from: '/submit' } : undefined}
+                className="text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors shadow-xs"
+              >
+                Submit your App
+              </Link>
+
               <button 
                 className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
                 onClick={() => {
@@ -144,8 +152,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
 
               {/* Desktop Auth/Avatar - hidden on small screens */}
               <div className="hidden md:flex items-center gap-4 border-l border-gray-200 dark:border-gray-700 pl-4 ml-1">
-                {user ? (
-                  <div className="flex items-center gap-3">
+                {user && (
+                  <div className="flex items-center gap-3 ml-2 border-l border-gray-200 dark:border-gray-700 pl-4">
                     {user.avatar ? (
                       <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 shadow-xs" title={user.name} />
                     ) : (
@@ -159,15 +167,6 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
                     <button onClick={handleLogout} className="text-gray-500 hover:text-red-500 transition-colors" title="Log out">
                       <LogOut className="w-4 h-4" />
                     </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-3">
-                    <Link to="/login" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                      Log in
-                    </Link>
-                    <Link to="/register" className="text-sm font-medium px-4 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-90 transition-opacity">
-                      Sign up
-                    </Link>
                   </div>
                 )}
               </div>
@@ -210,11 +209,12 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
 
                   {/* Submit Action */}
                   <Link
-                      to="/submit"
+                      to={user ? "/submit" : "/login"}
+                      state={!user ? { from: '/submit' } : undefined}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="flex items-center justify-center gap-2 w-full p-3 bg-blue-600 text-white rounded-xl font-medium shadow-lg hover:bg-blue-700 transition-colors mb-6"
                   >
-                      <span>Submit Resource</span>
+                      <span>Submit your App</span>
                   </Link>
 
                   {/* Navigation Links */}

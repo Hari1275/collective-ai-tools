@@ -58,7 +58,7 @@ const CommunityPrompts: React.FC<CommunityPromptsProps> = ({ showHeader = true }
       const data = await res.json();
       if (data.prompts) setPrompts(data.prompts);
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.error('Failed to fetch prompts:', err);
     } finally {
       setLoading(false);
@@ -93,7 +93,7 @@ const CommunityPrompts: React.FC<CommunityPromptsProps> = ({ showHeader = true }
       const updatedPrompt = await res.json();
       setPrompts(prev => prev.map(p => p._id === id ? updatedPrompt : p));
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.error('Vote failed:', err);
       fetchPrompts(); // Revert
     }

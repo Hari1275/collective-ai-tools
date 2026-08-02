@@ -245,7 +245,7 @@ const MCPServerDetail: React.FC = () => {
                 setError('Server not found');
             }
         } catch (err) {
-            // eslint-disable-next-line no-console
+             
             console.error(err);
             setError('Failed to load server details');
         } finally {
@@ -296,7 +296,7 @@ const MCPServerDetail: React.FC = () => {
         }
 
       } catch (err) {
-          // eslint-disable-next-line no-console
+           
           console.error("Failed to fetch from GitHub", err);
       }
   }

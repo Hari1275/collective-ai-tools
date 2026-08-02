@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Loader2, Puzzle, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Select } from './ui/select';
 
 const AGENTS = [
   'Claude Code', 'OpenCode', 'Cursor', 'Copilot', 'GPT',
@@ -212,15 +213,12 @@ export default function SubmitSkill() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Category *</label>
-                <select
+                <Select
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500"
-                >
-                  {CATEGORIES.map((c) => (
-                    <option key={c.value} value={c.value}>{c.label}</option>
-                  ))}
-                </select>
+                  onChange={setCategory}
+                  options={CATEGORIES.map(c => ({ value: c.value, label: c.label }))}
+                  buttonClassName="w-full px-4 py-2.5"
+                />
               </div>
             </div>
 

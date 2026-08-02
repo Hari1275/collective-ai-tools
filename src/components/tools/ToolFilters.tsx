@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Search, ChevronDown, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { Category, Tag } from '../../types/tools';
+import { Select } from '../ui/select';
 
 interface ToolFiltersProps {
   searchTerm: string;
@@ -58,21 +59,18 @@ const ToolFilters: React.FC<ToolFiltersProps> = ({
         <div className="flex gap-2">
           {/* Category Select */}
           <div className="relative flex-1 sm:flex-none sm:min-w-[200px]">
-            <select
+            <Select
               value={selectedCategory}
-              onChange={(e) => onCategoryChange(e.target.value)}
-              className="block w-full pl-3 pr-10 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-            >
-              <option value="">All Categories</option>
-              {allCategories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name} ({category.tools.length})
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
-              <ChevronDown className="h-4 w-4" />
-            </div>
+              onChange={onCategoryChange}
+              options={[
+                { value: '', label: 'All Categories' },
+                ...allCategories.map(c => ({
+                  value: c.id,
+                  label: `${c.name} (${c.tools.length})`
+                }))
+              ]}
+              buttonClassName="py-3"
+            />
           </div>
 
           {/* Favorites Toggle */}

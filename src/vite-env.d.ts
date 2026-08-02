@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   /** Set to 'true' in .env.local to use a real backend instead of MSW mocks in dev. */
   readonly VITE_USE_REAL_API?: string;
   readonly VITE_GOOGLE_CLIENT_ID: string;
+  readonly VITE_GITHUB_CLIENT_ID: string;
 }
 
 interface ImportMeta {

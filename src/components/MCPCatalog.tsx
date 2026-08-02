@@ -30,6 +30,7 @@ import PageHeader from './PageHeader';
 import SEO from './SEO';
 import { generateWebsiteStructuredData, generateBreadcrumbStructuredData } from '@/lib/seoUtils';
 import { fetchMCPServers, fetchFilters, MCPServer, FilterOption } from '@/lib/api';
+import { Select } from './ui/select';
 
 const MCPCatalog: React.FC = () => {
   // Filter States
@@ -57,7 +58,7 @@ const MCPCatalog: React.FC = () => {
   useEffect(() => {
     fetchFilters().then(data => {
         setCategories(data.categories);
-    // eslint-disable-next-line no-console
+     
     }).catch(console.error);
 
     const fetchHighlights = async () => {
@@ -72,7 +73,7 @@ const MCPCatalog: React.FC = () => {
             if (popData.data) setPopularMCP(popData.data);
             if (trendData.data) setTrendingMCP(trendData.data);
         } catch (error) {
-            // eslint-disable-next-line no-console
+             
             console.error('Failed to fetch highlights:', error);
         } finally {
             setLoadingHighlights(false);
@@ -111,7 +112,7 @@ const MCPCatalog: React.FC = () => {
         setTotalPages(response.pagination.totalPages);
         setLoading(false);
     }).catch(err => {
-        // eslint-disable-next-line no-console
+         
         console.error('Failed to fetch servers:', err);
         setLoading(false);
         setDisplayedServers([]);
@@ -297,16 +298,17 @@ const MCPCatalog: React.FC = () => {
 
             <div className="relative w-48 hidden md:block">
                <ArrowUpDown className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-               <select
+               <Select
                  value={sortBy}
-                 onChange={(e) => setSortBy(e.target.value)}
-                 className="w-full pl-10 h-10 bg-transparent border border-gray-200 dark:border-gray-700 rounded-md text-sm cursor-pointer appearance-none bg-none dark:bg-gray-900 dark:text-gray-100"
-               >
-                 <option value="newest">Newest Added</option>
-                 <option value="rating">Review Rating</option>
-                 <option value="stars">GitHub Stars</option>
-                 <option value="name">Name (A-Z)</option>
-               </select>
+                 onChange={setSortBy}
+                 options={[
+                   { value: 'newest', label: 'Newest Added' },
+                   { value: 'rating', label: 'Review Rating' },
+                   { value: 'stars', label: 'GitHub Stars' },
+                   { value: 'name', label: 'Name (A-Z)' },
+                 ]}
+                 buttonClassName="w-full pl-10 h-10 border-gray-200 dark:border-gray-700 bg-transparent"
+               />
             </div>
           </div>
 
@@ -314,49 +316,50 @@ const MCPCatalog: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 mt-4 border-t border-gray-100 dark:border-gray-800">
               <div className="space-y-1">
                 <label className="text-xs font-medium text-gray-500">Category</label>
-                <select
+                <Select
                   value={selectedCategory}
-                  onChange={(e) => {
-                      setSelectedCategory(e.target.value);
+                  onChange={(val) => {
+                      setSelectedCategory(val);
                       setPage(1);
                   }}
-                  className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-                >
-                  <option value="all">All Categories</option>
-                  {categories.map(cat => (
-                      <option key={cat._id} value={cat.slug}>{cat.name}</option>
-                  ))}
-                </select>
+                  options={[
+                    { value: 'all', label: 'All Categories' },
+                    ...categories.map(cat => ({ value: cat.slug, label: cat.name }))
+                  ]}
+                  buttonClassName="w-full h-10 border-gray-200 dark:border-gray-700 bg-transparent"
+                />
               </div>
 
               <div className="space-y-1">
                 <label className="text-xs font-medium text-gray-500">Type</label>
-                <select
+                <Select
                   value={selectedType}
-                  onChange={(e) => {
-                      setSelectedType(e.target.value);
+                  onChange={(val) => {
+                      setSelectedType(val);
                       setPage(1);
                   }}
-                  className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-                >
-                  <option value="all">All Types</option>
-                  <option value="MCP Server">MCP Server</option>
-                  <option value="MCP Client">MCP Client</option>
-                </select>
+                  options={[
+                    { value: 'all', label: 'All Types' },
+                    { value: 'MCP Server', label: 'MCP Server' },
+                    { value: 'MCP Client', label: 'MCP Client' },
+                  ]}
+                  buttonClassName="w-full h-10 border-gray-200 dark:border-gray-700 bg-transparent"
+                />
               </div>
               
               <div className="space-y-1 md:hidden">
                 <label className="text-xs font-medium text-gray-500">Sort By</label>
-                <select
+                <Select
                  value={sortBy}
-                 onChange={(e) => setSortBy(e.target.value)}
-                 className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-                >
-                 <option value="newest">Newest Added</option>
-                 <option value="rating">Review Rating</option>
-                 <option value="stars">GitHub Stars</option>
-                 <option value="name">Name (A-Z)</option>
-                </select>
+                 onChange={setSortBy}
+                 options={[
+                   { value: 'newest', label: 'Newest Added' },
+                   { value: 'rating', label: 'Review Rating' },
+                   { value: 'stars', label: 'GitHub Stars' },
+                   { value: 'name', label: 'Name (A-Z)' },
+                 ]}
+                 buttonClassName="w-full h-10 border-gray-200 dark:border-gray-700 bg-transparent"
+                />
               </div>
             </div>
           )}

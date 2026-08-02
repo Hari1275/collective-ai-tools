@@ -121,7 +121,7 @@ const ComparisonPage: React.FC = () => {
           setTools([toolA, toolB]);
         }
       } catch (err) {
-        // eslint-disable-next-line no-console
+         
         console.error('Failed to load comparison tools:', err);
         setError('An error occurred while loading the comparison.');
       } finally {

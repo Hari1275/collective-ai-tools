@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Github } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 
 export default function Login() {
@@ -9,10 +9,20 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle, loginWithGithub } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as any)?.from || '/';
+  const from = (location.state as any)?.from || sessionStorage.getItem('authRedirect') || '/';
+
+  useEffect(() => {
+    const fromState = (location.state as any)?.from;
+    if (fromState) {
+      sessionStorage.setItem('authRedirect', fromState);
+    } else {
+      // If we landed here without a target (e.g. sidebar login), clear any stale target
+      sessionStorage.removeItem('authRedirect');
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,12 +30,42 @@ export default function Login() {
     setLoading(true);
     try {
       await login(email, password);
+      sessionStorage.removeItem('authRedirect');
       navigate(from, { replace: true });
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    if (code) {
+      setLoading(true);
+      loginWithGithub(code)
+        .then(() => {
+          sessionStorage.removeItem('authRedirect');
+          navigate(from, { replace: true });
+        })
+        .catch(err => {
+          setError(err.message);
+          setLoading(false);
+        });
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [loginWithGithub, navigate, from]);
+
+  const handleGithubLogin = () => {
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
+    if (!clientId) {
+      setError('GitHub login is not configured');
+      return;
+    }
+    const redirectUri = `${window.location.origin  }/login`;
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
   };
 
   return (
@@ -51,6 +91,7 @@ export default function Login() {
                   setError('');
                   try {
                     await loginWithGoogle(credentialResponse.credential);
+                    sessionStorage.removeItem('authRedirect');
                     navigate(from, { replace: true });
                   } catch (err: any) {
                     setError(err.message);
@@ -73,6 +114,15 @@ export default function Login() {
               </div>
             </div>
           </div>
+          
+          <button
+            onClick={handleGithubLogin}
+            disabled={loading}
+            className="w-full flex justify-center items-center gap-3 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-xs bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mt-3"
+          >
+            <Github className="h-5 w-5" />
+            Continue with GitHub
+          </button>
         </div>
 
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>

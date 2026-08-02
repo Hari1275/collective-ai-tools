@@ -5,6 +5,7 @@ import { DiscoverCard } from './DiscoverCard';
 import { SOURCES, type SortKey } from './sources';
 import { TYPE_ACCENT } from './theme';
 import type { DiscoverItem, DiscoverType } from './types';
+import { Select } from '../ui/select';
 
 type Filter = 'all' | DiscoverType;
 
@@ -95,8 +96,37 @@ export function DiscoverBrowse() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Mobile Filters & Sort (Dropdowns) */}
+        <div className="flex flex-wrap items-center w-full gap-2 md:hidden">
+          <Select
+            value={filter}
+            onChange={(val) => setFilter(val as Filter)}
+            options={FILTERS.map((f) => {
+              const count = f.key === 'all' ? total : (totals[f.key] ?? 0);
+              const showCount = (f.key === 'all' ? !initialLoading : f.key in groups);
+              return {
+                value: f.key,
+                label: `${f.label} ${showCount ? `(${count})` : ''}`.trim()
+              };
+            })}
+            className="w-auto"
+            buttonClassName="py-2.5 w-auto justify-start"
+          />
+          <Select
+            value={sort}
+            onChange={(val) => setSort(val as SortKey)}
+            options={SORTS.map((s) => ({
+              value: s.key,
+              label: s.label
+            }))}
+            className="w-auto"
+            buttonClassName="py-2.5 w-auto justify-start"
+          />
+        </div>
+
+        {/* Desktop Filters */}
+        <div className="hidden md:flex flex-wrap items-center gap-2">
           {FILTERS.map((f) => {
             const active = filter === f.key;
             const count = f.key === 'all' ? total : (totals[f.key] ?? 0);
@@ -125,10 +155,11 @@ export function DiscoverBrowse() {
           })}
         </div>
 
+        {/* Desktop Sort */}
         <div
           role="group"
           aria-label="Sort"
-          className="inline-flex items-center rounded-full border border-black/10 p-0.5 dark:border-white/10"
+          className="hidden md:inline-flex items-center rounded-full border border-black/10 p-0.5 dark:border-white/10"
         >
           {SORTS.map((s) => {
             const active = sort === s.key;

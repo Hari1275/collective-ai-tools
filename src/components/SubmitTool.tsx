@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Loader2, Plus, Code, Wrench, Terminal, X } from 'lucide-react';
+import { Select } from './ui/select';
 
 export default function SubmitTool() {
   const { user } = useAuth();
@@ -298,33 +299,33 @@ export default function SubmitTool() {
                 {activeTab === 'mcp' && (
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
-                         <select
-                            required
+                         <Select
                             value={data.location}
-                            onChange={(e) => setData({...data, location: e.target.value})}
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="Remote">Remote</option>
-                            <option value="Local">Local</option>
-                        </select>
+                            onChange={(val) => setData({...data, location: val})}
+                            options={[
+                                { value: 'Remote', label: 'Remote' },
+                                { value: 'Local', label: 'Local' }
+                            ]}
+                            buttonClassName="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"
+                        />
                     </div>
                 )}
 
                 {isTool && (
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pricing</label>
-                         <select
-                            required
+                         <Select
                             value={data.pricing}
-                            onChange={(e) => setData({...data, pricing: e.target.value})}
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="">Select pricing</option>
-                            <option value="Free">Free</option>
-                            <option value="Freemium">Freemium</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Trial">Free Trial</option>
-                        </select>
+                            onChange={(val) => setData({...data, pricing: val})}
+                            options={[
+                                { value: '', label: 'Select pricing' },
+                                { value: 'Free', label: 'Free' },
+                                { value: 'Freemium', label: 'Freemium' },
+                                { value: 'Paid', label: 'Paid' },
+                                { value: 'Trial', label: 'Free Trial' }
+                            ]}
+                            buttonClassName="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"
+                        />
                     </div>
                 )}
             </div>

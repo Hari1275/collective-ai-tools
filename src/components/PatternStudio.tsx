@@ -194,7 +194,7 @@ const PatternStudio: React.FC = () => {
           setStrategies(strats);
         }
     } catch (e) {
-        // eslint-disable-next-line no-console
+         
         console.error("Load failed", e);
         setIsError(true);
     }
@@ -322,7 +322,7 @@ const PatternStudio: React.FC = () => {
           const text = await file.text();
           combinedContent += `--- FILE: ${file.name} ---\n${text}\n\n`;
         } catch (err) {
-          // eslint-disable-next-line no-console
+           
           console.error('Failed to read file:', file.name, err);
         }
       } else {
@@ -390,7 +390,7 @@ const PatternStudio: React.FC = () => {
             // Fallback logic could go here
         }
     } catch (e) {
-        // eslint-disable-next-line no-console
+         
         console.error("Save failed", e);
         // Fallback to local
         const id = newPatternName.toLowerCase().replace(/\s+/g, '_');

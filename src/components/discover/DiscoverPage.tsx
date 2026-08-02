@@ -35,7 +35,7 @@ export default function DiscoverPage() {
 
         <div className="mt-7 max-w-2xl">
           <div className="relative flex items-center">
-            <Search aria-hidden="true" className="pointer-events-none absolute left-4 h-5 w-5 text-gray-400" />
+            <Search aria-hidden="true" className="pointer-events-none absolute left-4 z-10 h-5 w-5 text-gray-400" />
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -60,7 +60,7 @@ export default function DiscoverPage() {
           </div>
         </div>
 
-        <div className="mt-14">
+        <div className="mt-8">
           {query.trim() ? <SearchResults query={query} /> : <DiscoverBrowse />}
         </div>
       </div>

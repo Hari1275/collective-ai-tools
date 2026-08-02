@@ -13,6 +13,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   loginWithGoogle: (credential: string) => Promise<void>;
+  loginWithGithub: (code: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -110,6 +111,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(data.user);
   }
 
+  async function loginWithGithub(code: string) {
+    const res = await fetch('/api/auth/github', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    });
+
+    if (!res.ok) {
+      let errorData;
+      try {
+        errorData = await res.json();
+      } catch {
+        throw new Error('GitHub Login failed');
+      }
+      throw new Error(errorData.error || 'GitHub Login failed');
+    }
+
+    const data = await res.json();
+    localStorage.setItem(AUTH_HINT_KEY, '1');
+    setUser(data.user);
+  }
+
   async function register(name: string, email: string, password: string) {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
@@ -134,7 +157,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, loginWithGithub, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
