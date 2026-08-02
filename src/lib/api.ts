@@ -39,7 +39,7 @@ export interface MCPServer {
   // Type can be 'MCP Server' or 'MCP Client'
   type: 'MCP Server' | 'MCP Client';
   // Populated fields
-  category?: FilterOption;
+  categories?: FilterOption[];
   language?: FilterOption;
   tags: string[];
   rating?: number;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Loader2, Plus, Code, Wrench, Terminal } from 'lucide-react';
+import { Loader2, Plus, Code, Wrench, Terminal, X } from 'lucide-react';
 
 export default function SubmitTool() {
   const { user } = useAuth();
@@ -24,6 +24,18 @@ export default function SubmitTool() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [availableCategories, setAvailableCategories] = useState<{_id: string, name: string}[]>([]);
+  const [categorySearch, setCategorySearch] = useState('');
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/filters')
+      .then(res => res.json())
+      .then(d => {
+        if (d.categories) setAvailableCategories(d.categories);
+      })
+      .catch(console.error);
+  }, []);
 
   if (!user) {
     return (
@@ -209,45 +221,78 @@ export default function SubmitTool() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categories</label>
-                    <select
-                        required
-                        multiple
-                        size={4}
-                        value={data.categories}
-                        onChange={(e) => {
-                            const selected = Array.from(e.target.selectedOptions, option => option.value);
-                            setData({...data, categories: selected});
-                        }}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="" disabled>Select categories</option>
-                        {isMcpServer ? (
-                            <>
-                                <option value="Database">Database</option>
-                                <option value="Cloud">Cloud Service</option>
-                                <option value="Productivity">Productivity</option>
-                                <option value="Development">Development</option>
-                            </>
-                        ) : isMcpClient ? (
-                            <>
-                                <option value="Desktop">Desktop App</option>
-                                <option value="CLI">CLI</option>
-                                <option value="Extension">IDE Extension</option>
-                                <option value="Mobile">Mobile App</option>
-                            </>
-                        ) : (
-                            <>
-                                <option value="Chat">Chat</option>
-                                <option value="Image">Image Generation</option>
-                                <option value="Video">Video</option>
-                                <option value="Audio">Audio</option>
-                                <option value="Productivity">Productivity</option>
-                                <option value="Development">Development</option>
-                            </>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Categories (Select multiple)
+                    </label>
+                    <div className="flex flex-col gap-2">
+                        {/* Selected Pills */}
+                        {data.categories.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {availableCategories.filter(cat => data.categories.includes(cat._id)).map(cat => (
+                                    <span key={cat._id} className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                                        {cat.name}
+                                        <button 
+                                            type="button"
+                                            onClick={() => setData({ ...data, categories: data.categories.filter(id => id !== cat._id)})}
+                                            className="hover:bg-blue-200 dark:hover:bg-blue-800 rounded-full p-0.5 transition-colors focus:outline-hidden"
+                                        >
+                                            <X className="w-3 h-3" />
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
                         )}
-                        <option value="Other">Other</option>
-                    </select>
+
+                        {/* Combobox */}
+                        <div className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search and select categories..."
+                                value={categorySearch}
+                                onChange={(e) => {
+                                    setCategorySearch(e.target.value);
+                                    setIsCategoryOpen(true);
+                                }}
+                                onFocus={() => setIsCategoryOpen(true)}
+                                onBlur={() => setTimeout(() => setIsCategoryOpen(false), 200)}
+                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            />
+                            
+                            {isCategoryOpen && (
+                                <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                    {availableCategories.length === 0 ? (
+                                        <div className="p-3 text-sm text-gray-500 text-center">Loading categories...</div>
+                                    ) : (
+                                        (() => {
+                                            const filtered = availableCategories.filter(cat => 
+                                                cat.name.toLowerCase().includes(categorySearch.toLowerCase()) &&
+                                                !data.categories.includes(cat._id)
+                                            );
+                                            
+                                            if (filtered.length === 0) {
+                                                return <div className="p-3 text-sm text-gray-500 text-center">No categories found.</div>;
+                                            }
+                                            
+                                            return filtered.map(cat => (
+                                                <button
+                                                    key={cat._id}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setData({ ...data, categories: [...data.categories, cat._id] });
+                                                        setCategorySearch('');
+                                                        setIsCategoryOpen(false);
+                                                    }}
+                                                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors"
+                                                >
+                                                    {cat.name}
+                                                </button>
+                                            ));
+                                        })()
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
                 {activeTab === 'mcp' && (
