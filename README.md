@@ -634,9 +634,9 @@ Use these hashtags in search to filter out the tools
 - [Dream Interpretation - AI Dream Analyst](https://dream-interpretation-ai.com/) - Dream analysis, dream story sharing, dream dictionary `#free`
 - [GreenThumb](https://www.messengerx.io/greenthumb) - Unlock the World of Gardening with Your AI Companion `#free`
 - [SomniAI](https://somniai.com/) - Offers accurate and personalized interpretations of dreams in seconds. `#free`
+- [Pixel Pet](https://letmethink.cc/app/pixel-pet/) - Turn a personality description into a deterministic ASCII pixel companion in the browser. `#free`
 
 **[⬆️ Back to Top](#table-of-contents)**
-
 
 ## Gaming
 
