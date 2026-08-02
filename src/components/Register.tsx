@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Loader2 } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -9,7 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as any)?.from || '/';
@@ -42,7 +43,40 @@ export default function Register() {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={async (credentialResponse) => {
+                if (credentialResponse.credential) {
+                  setError('');
+                  try {
+                    await loginWithGoogle(credentialResponse.credential);
+                    navigate(from, { replace: true });
+                  } catch (err: any) {
+                    setError(err.message);
+                  }
+                }
+              }}
+              onError={() => setError('Google Signup failed')}
+            />
+          </div>
+          
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300 dark:border-gray-600" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                  Or sign up with email
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm text-center">
               {error}

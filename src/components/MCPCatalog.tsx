@@ -217,9 +217,9 @@ const MCPCatalog: React.FC = () => {
         <div className="mt-auto pt-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-2 text-xs text-gray-500">
              <span className="flex items-center gap-1">
-                 {server.category?.name && (
+                 {server.categories && server.categories.length > 0 && (
                      <Badge variant="secondary" className="text-[10px] px-1.5 h-5 font-normal opacity-70">
-                        {server.category.name}
+                        {server.categories[0].name}
                      </Badge>
                  )}
              </span>

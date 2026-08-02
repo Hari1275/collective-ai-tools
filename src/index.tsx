@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import { AuthProvider } from './context/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import './styles/globals.css';
 
 // Mocked API by default in dev, so contributors without backend access get a
@@ -29,9 +30,11 @@ async function bootstrap() {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || 'your-google-client-id'}>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </GoogleOAuthProvider>
       </BrowserRouter>
     </React.StrictMode>
   );

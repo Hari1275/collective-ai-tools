@@ -348,7 +348,7 @@ const MCPServerDetail: React.FC = () => {
 
   // Safe checks for populated fields
   const languageName = server.language?.name;
-  const categoryName = server.category?.name;
+  const categoryName = server.categories?.[0]?.name;
 
 
   return (

@@ -122,8 +122,9 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
               </Link>
             </div>
 
-            {/* Right: Theme Toggle (Visible on bar) */}
-             <button 
+            {/* Right: Actions */}
+            <div className="flex items-center gap-3">
+              <button 
                 className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
                 onClick={() => {
                   const body = document.body;
@@ -139,7 +140,38 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
                 <svg className="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                 </svg>
-             </button>
+              </button>
+
+              {/* Desktop Auth/Avatar - hidden on small screens */}
+              <div className="hidden md:flex items-center gap-4 border-l border-gray-200 dark:border-gray-700 pl-4 ml-1">
+                {user ? (
+                  <div className="flex items-center gap-3">
+                    {user.avatar ? (
+                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 shadow-xs" title={user.name} />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold border border-blue-200 dark:border-blue-800 shadow-xs" title={user.name}>
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    {user.role === 'admin' && (
+                      <Link to="/admin" className="text-xs font-medium text-blue-600 hover:text-blue-500">Admin</Link>
+                    )}
+                    <button onClick={handleLogout} className="text-gray-500 hover:text-red-500 transition-colors" title="Log out">
+                      <LogOut className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <Link to="/login" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                      Log in
+                    </Link>
+                    <Link to="/register" className="text-sm font-medium px-4 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:opacity-90 transition-opacity">
+                      Sign up
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
         </div>
       </div>
 
@@ -245,10 +277,16 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
                       {user ? (
                           <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                               <div className="flex items-center gap-3">
-                                  <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full" />
+                                  {user.avatar ? (
+                                    <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full shadow-xs" />
+                                  ) : (
+                                    <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold shadow-xs">
+                                      {user.name.charAt(0).toUpperCase()}
+                                    </div>
+                                  )}
                                   <div className="flex flex-col">
                                       <span className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</span>
-                                      <span className="text-xs text-gray-500">Member</span>
+                                      <span className="text-xs text-gray-500">{user.role === 'admin' ? 'Administrator' : 'Member'}</span>
                                   </div>
                               </div>
                                <button
