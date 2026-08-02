@@ -12,6 +12,28 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
+      manifest: {
+        name: 'Collective AI Tools',
+        short_name: 'Collective AI',
+        description: 'Discover the best AI tools and resources. A comprehensive, searchable directory of AI applications.',
+        theme_color: '#3B82F6',
+        background_color: '#ffffff',
+        display: 'standalone',
+        icons: [
+          {
+            src: '/icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          }
+        ]
       }
     })
   ],
