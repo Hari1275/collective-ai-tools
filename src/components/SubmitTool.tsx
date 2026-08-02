@@ -9,7 +9,7 @@ export default function SubmitTool() {
   const location = useLocation();
 
   // UI States
-  const [activeTab, setActiveTab] = useState<'mcp' | 'tool'>('mcp');
+  const [activeTab, setActiveTab] = useState<'mcp' | 'tool'>('tool');
   const [mcpSubtype, setMcpSubtype] = useState<'server' | 'client'>('server');
 
   const [data, setData] = useState({
@@ -129,18 +129,18 @@ export default function SubmitTool() {
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xs border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="flex border-b border-gray-200 dark:border-gray-700">
             <button
-                onClick={() => setActiveTab('mcp')}
-                className={`flex-1 py-4 text-center font-medium flex items-center justify-center gap-2 transition-colors ${activeTab === 'mcp' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}
-            >
-                <Code className="h-5 w-5" />
-                MCP Resource
-            </button>
-            <button
                 onClick={() => setActiveTab('tool')}
                 className={`flex-1 py-4 text-center font-medium flex items-center justify-center gap-2 transition-colors ${activeTab === 'tool' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}
             >
                 <Wrench className="h-5 w-5" />
                 AI Tool
+            </button>
+            <button
+                onClick={() => setActiveTab('mcp')}
+                className={`flex-1 py-4 text-center font-medium flex items-center justify-center gap-2 transition-colors ${activeTab === 'mcp' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}
+            >
+                <Code className="h-5 w-5" />
+                MCP Resource
             </button>
         </div>
         
