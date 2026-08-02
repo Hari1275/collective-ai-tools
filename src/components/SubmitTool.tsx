@@ -16,7 +16,7 @@ export default function SubmitTool() {
     name: '',
     description: '',
     url: '', // Website or Repo URL
-    category: '',
+    categories: [] as string[],
     pricing: '',
     tags: '',
     location: 'Remote' // Default for MCP queries
@@ -71,7 +71,7 @@ export default function SubmitTool() {
         }
 
         setSuccess(true);
-        setData({ name: '', description: '', url: '', category: '', pricing: '', tags: '', location: 'Remote' });
+        setData({ name: '', description: '', url: '', categories: [], pricing: '', tags: '', location: 'Remote' });
     } catch (err) {
         setError('Failed to submit. Please try again.');
         console.error(err);
@@ -209,14 +209,19 @@ export default function SubmitTool() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categories</label>
                     <select
                         required
-                        value={data.category}
-                        onChange={(e) => setData({...data, category: e.target.value})}
+                        multiple
+                        size={4}
+                        value={data.categories}
+                        onChange={(e) => {
+                            const selected = Array.from(e.target.selectedOptions, option => option.value);
+                            setData({...data, categories: selected});
+                        }}
                         className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
                     >
-                        <option value="">Select a category</option>
+                        <option value="" disabled>Select categories</option>
                         {isMcpServer ? (
                             <>
                                 <option value="Database">Database</option>
