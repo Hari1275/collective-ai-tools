@@ -287,6 +287,7 @@ Use these hashtags in search to filter out the tools
 - [Notion AI](https://www.notion.so/product/ai) - AI writing assistant integrated into Notion workspace. `#freemium`
 - [SmartBird](https://smartbird.ai/) - SmartBird: Your AI Assistant for Effortless Communication `#paid`
 - [Writesonic](https://writesonic.com/) - AI writing assistant for blogs, ads, and marketing content. `#freemium`
+- [ListingAI](https://lijustin655.github.io/f1-listingai/) - AI listing generator for Amazon & TikTok Shop sellers - title, bullets, and description in 30 seconds. `#free`
 
 **[⬆️ Back to Top](#table-of-contents)**
 
