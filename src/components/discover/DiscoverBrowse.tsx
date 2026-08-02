@@ -6,6 +6,7 @@ import { SOURCES, type SortKey } from './sources';
 import { TYPE_ACCENT } from './theme';
 import type { DiscoverItem, DiscoverType } from './types';
 import { Select } from '../ui/select';
+import { useAllFavorites } from '@/hooks/useFavorites';
 
 type Filter = 'all' | DiscoverType;
 
@@ -51,11 +52,12 @@ function CardGrid({ items, loading }: { items: DiscoverItem[]; loading?: boolean
   );
 }
 
-export function DiscoverBrowse() {
+export function DiscoverBrowse({ showFavorites }: { showFavorites?: boolean }) {
   const [groups, setGroups] = useState<Partial<Record<DiscoverType, DiscoverItem[]>>>({});
   const [totals, setTotals] = useState<Partial<Record<DiscoverType, number>>>({});
   const [filter, setFilter] = useState<Filter>('all');
   const [sort, setSort] = useState<SortKey>('popular');
+  const { isFavoriteAny } = useAllFavorites();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -91,7 +93,14 @@ export function DiscoverBrowse() {
     [totals],
   );
 
-  const items = filter === 'all' ? [] : groups[filter] ?? [];
+  const items = useMemo(() => {
+    let list = filter === 'all' ? [] : (groups[filter] ?? []);
+    if (showFavorites) {
+      list = list.filter(item => isFavoriteAny(item.type, item.title));
+    }
+    return list;
+  }, [filter, groups, showFavorites, isFavoriteAny]);
+
   const filterLoading = filter === 'all' ? stillLoading : !(filter in groups);
 
   return (
@@ -186,7 +195,10 @@ export function DiscoverBrowse() {
       {filter === 'all' ? (
         <div className="space-y-14">
           {SOURCES.map((s) => {
-            const list = groups[s.type];
+            let list = groups[s.type];
+            if (list && showFavorites) {
+              list = list.filter(item => isFavoriteAny(item.type, item.title));
+            }
             const loading = !(s.type in groups);
             // Hide sections that finished loading with nothing to show.
             if (!loading && (!list || list.length === 0)) return null;

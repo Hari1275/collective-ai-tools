@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Heart } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import SEO from '@/components/SEO';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { generateWebsiteStructuredData, generateBreadcrumbStructuredData } from '@/lib/seoUtils';
@@ -13,6 +15,7 @@ const POPULAR = ['agents', 'code review', 'rag', 'image generation', 'mcp'];
 export default function DiscoverPage() {
   const [params, setParams] = useSearchParams();
   const query = params.get('q') ?? '';
+  const [showFavorites, setShowFavorites] = useState(false);
 
   const setQuery = (value: string) => {
     const next = new URLSearchParams(params);
@@ -46,6 +49,19 @@ export default function DiscoverPage() {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+            <button
+              onClick={() => setShowFavorites(!showFavorites)}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-medium transition-colors border",
+                showFavorites 
+                  ? "bg-yellow-50 text-yellow-600 border-yellow-200 dark:bg-yellow-900/30 dark:border-yellow-700/50 dark:text-yellow-400" 
+                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300"
+              )}
+            >
+              <Heart className={cn("w-3.5 h-3.5", showFavorites && "fill-current")} />
+              Saved
+            </button>
+            <div className="w-px h-4 bg-gray-300 dark:bg-gray-700 mx-1" />
             <span className="text-gray-400 dark:text-gray-500">Popular</span>
             {POPULAR.map((q) => (
               <button
@@ -61,7 +77,7 @@ export default function DiscoverPage() {
         </div>
 
         <div className="mt-8">
-          {query.trim() ? <SearchResults query={query} /> : <DiscoverBrowse />}
+          {query.trim() ? <SearchResults query={query} showFavorites={showFavorites} /> : <DiscoverBrowse showFavorites={showFavorites} />}
         </div>
       </div>
     </ErrorBoundary>

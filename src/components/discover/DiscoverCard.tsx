@@ -1,9 +1,10 @@
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import { BadgeCheck } from 'lucide-react';
+import { BadgeCheck, Heart } from 'lucide-react';
 import { withUtm } from '@/lib/outbound';
 import { captureEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
+import { useFavorites } from '@/hooks/useFavorites';
 import { TYPE_ACCENT } from './theme';
 import type { DiscoverItem } from './types';
 
@@ -15,8 +16,17 @@ function monogram(title: string): string {
 
 export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSProperties }) {
   const accent = TYPE_ACCENT[item.type];
+  const { isFavorite, toggleFavorite } = useFavorites(item.type);
+  const favorited = isFavorite(item.title);
+
   const onClick = () =>
     captureEvent('discover_click', { type: item.type, id: item.id, title: item.title });
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(item.title);
+  };
 
   const body = (
     <div
@@ -27,7 +37,7 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
         'shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none transition-all duration-300',
         'hover:-translate-y-1 hover:shadow-xl hover:border-transparent dark:hover:border-transparent',
         accent.glow,
-        'after:absolute after:inset-0 after:rounded-2xl after:ring-1 after:ring-inset after:ring-transparent after:transition-all hover:after:ring-2',
+        'after:absolute after:inset-0 after:pointer-events-none after:rounded-2xl after:ring-1 after:ring-inset after:ring-transparent after:transition-all hover:after:ring-2',
         accent.ring.replace('hover:border-', 'hover:after:ring-').replace('/40', '/50') // hack to convert border to ring for smoother animation
       )}
     >
@@ -46,13 +56,27 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
             <span className={cn('inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ring-1 ring-inset', accent.chip)}>
               {item.type}
             </span>
-            {item.meta && (
-              <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-[11px] font-medium text-gray-600 dark:text-gray-300 ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
-                {item.meta}
-              </span>
-            )}
+            <div className="flex items-center gap-1.5">
+              {item.meta && (
+                <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-[11px] font-medium text-gray-600 dark:text-gray-300 ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
+                  {item.meta}
+                </span>
+              )}
+              <button
+                onClick={handleFavoriteClick}
+                className={cn(
+                  "relative z-10 p-1.5 rounded-full transition-all duration-200 focus:outline-hidden",
+                  favorited 
+                    ? "bg-yellow-100 text-yellow-500 dark:bg-yellow-900/30" 
+                    : "text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-500"
+                )}
+                aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
+              >
+                <Heart className={cn("w-4 h-4", favorited && "fill-current")} />
+              </button>
+            </div>
           </div>
-          <h3 className="flex items-center gap-1.5 text-base font-bold text-gray-900 dark:text-white leading-tight">
+          <h3 className="flex items-center gap-1.5 text-base font-bold text-gray-900 dark:text-white leading-tight pr-6">
             <span className="truncate">{item.title}</span>
             {item.verified && (
               <span className={cn('inline-flex shrink-0 items-center', accent.text)} title="Verified">

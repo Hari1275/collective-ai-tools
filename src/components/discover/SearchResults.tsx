@@ -5,6 +5,7 @@ import { DiscoverCard } from './DiscoverCard';
 import { useDiscoverSearch } from './useDiscoverSearch';
 import { TYPE_ACCENT } from './theme';
 import type { DiscoverGroup } from './types';
+import { useAllFavorites } from '@/hooks/useFavorites';
 
 function GroupBody({ group }: { group: DiscoverGroup }) {
   if (group.status === 'loading') {
@@ -39,13 +40,23 @@ function GroupBody({ group }: { group: DiscoverGroup }) {
   );
 }
 
-export function SearchResults({ query }: { query: string }) {
+export function SearchResults({ query, showFavorites }: { query: string; showFavorites?: boolean }) {
   const { groups } = useDiscoverSearch(query);
+  const { isFavoriteAny } = useAllFavorites();
   const visible = groups.filter((g) => g.status !== 'idle');
 
   return (
     <div className="flex flex-col gap-12">
       {visible.map((group) => {
+        let items = group.items;
+        if (showFavorites && group.status === 'success') {
+          items = items.filter(item => isFavoriteAny(item.type, item.title));
+        }
+        
+        // Hide if filtered out all results but it was successful
+        if (showFavorites && group.status === 'success' && items.length === 0) return null;
+
+        const filteredGroup = { ...group, items };
         const accent = TYPE_ACCENT[group.type];
         return (
           <section key={group.type} aria-labelledby={`discover-${group.type}`}>
@@ -53,9 +64,9 @@ export function SearchResults({ query }: { query: string }) {
               <div className="flex items-center gap-3">
                 <span className={cn('h-2 w-2 rounded-full', accent.dot)} />
                 <h2 id={`discover-${group.type}`} className="text-lg font-bold text-gray-900 dark:text-white">
-                  {group.label}
-                  {group.status === 'success' && (
-                    <span className={cn('ml-2 text-sm font-semibold', accent.text)}>{group.items.length}</span>
+                  {filteredGroup.label}
+                  {filteredGroup.status === 'success' && (
+                    <span className={cn('ml-2 text-sm font-semibold', accent.text)}>{filteredGroup.items.length}</span>
                   )}
                 </h2>
               </div>
@@ -67,7 +78,7 @@ export function SearchResults({ query }: { query: string }) {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
-            <GroupBody group={group} />
+            <GroupBody group={filteredGroup} />
           </section>
         );
       })}

@@ -85,7 +85,7 @@ export default function Login() {
         
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-full max-w-[320px]">
+            <div className="w-full max-w-[320px] overflow-hidden rounded-[4px] [&>div]:flex [&>div]:justify-center">
               <GoogleLogin
                 theme="outline"
                 shape="rectangular"

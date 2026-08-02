@@ -11,6 +11,7 @@ import { generateWebsiteStructuredData, generateBreadcrumbStructuredData, genera
 import { Button } from './ui/button';
 import { Loader2, AlertCircle, Scale, X, ArrowRight, Wrench } from 'lucide-react';
 import PageHeader from './PageHeader';
+import { useFavorites } from '@/hooks/useFavorites';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -38,7 +39,7 @@ const ExternalTools: React.FC = () => {
   );
 
   // Persistent State (Favorites & Clicks)
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const { favorites, toggleFavorite: toggleFavStorage } = useFavorites('tool');
   const [comparingTools, setComparingTools] = useState<Tool[]>([]);
   const navigate = useNavigate();
 
@@ -74,10 +75,7 @@ const ExternalTools: React.FC = () => {
         const response = await fetchAITools({ limit: 1000 });
         
         // Load local storage data
-        const savedFavorites = JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
         const savedClicks = JSON.parse(localStorage.getItem(CLICKS_KEY) || '{}');
-        
-        setFavorites(new Set(savedFavorites));
 
         // Map API tools to internal Tool interface and merge analytics
         const mappedTools: Tool[] = response.data.map((t: AITool) => ({
@@ -115,14 +113,7 @@ const ExternalTools: React.FC = () => {
 
   // Actions
   const toggleFavorite = (tool: Tool) => {
-    const newFavorites = new Set(favorites);
-    if (newFavorites.has(tool.name)) {
-      newFavorites.delete(tool.name);
-    } else {
-      newFavorites.add(tool.name);
-    }
-    setFavorites(newFavorites);
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(Array.from(newFavorites)));
+    toggleFavStorage(tool.name);
   };
 
   const trackClick = (tool: Tool) => {
