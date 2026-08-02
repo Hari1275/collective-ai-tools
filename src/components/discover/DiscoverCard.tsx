@@ -21,35 +21,38 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
   const body = (
     <div
       className={cn(
-        'group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl p-4',
-        'border border-black/6 dark:border-white/10',
-        'bg-white/80 dark:bg-white/4 backdrop-blur-xl',
-        'shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
-        accent.ring,
+        'group relative flex h-full flex-col gap-3.5 overflow-hidden rounded-2xl p-5',
+        'border border-gray-200/60 dark:border-white/10',
+        'bg-white dark:bg-white/5 backdrop-blur-xl',
+        'shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none transition-all duration-300',
+        'hover:-translate-y-1 hover:shadow-xl hover:border-transparent dark:hover:border-transparent',
         accent.glow,
+        'after:absolute after:inset-0 after:rounded-2xl after:ring-1 after:ring-inset after:ring-transparent after:transition-all hover:after:ring-2',
+        accent.ring.replace('hover:border-', 'hover:after:ring-').replace('/40', '/50') // hack to convert border to ring for smoother animation
       )}
     >
-      <span className={cn('absolute inset-x-0 top-0 h-0.5 bg-linear-to-r opacity-80', accent.bar)} />
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3.5">
         <div
           aria-hidden="true"
           className={cn(
-            'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-linear-to-br text-sm font-bold tracking-tight text-white shadow-xs transition-transform duration-300 group-hover:scale-105',
+            'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br text-[15px] font-bold tracking-tight text-white shadow-sm border border-white/20 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-1',
             accent.bar,
           )}
         >
           {monogram(item.title)}
         </div>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-2">
-            <span className={cn('text-[10px] font-bold uppercase tracking-wider', accent.text)}>{item.type}</span>
+        <div className="min-w-0 flex-1 pt-0.5">
+          <div className="flex items-center justify-between gap-2 mb-1.5">
+            <span className={cn('inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ring-1 ring-inset', accent.chip)}>
+              {item.type}
+            </span>
             {item.meta && (
-              <span className="shrink-0 text-xs font-semibold tabular-nums text-gray-500 dark:text-gray-400">
+              <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-[11px] font-medium text-gray-600 dark:text-gray-300 ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
                 {item.meta}
               </span>
             )}
           </div>
-          <h3 className="mt-0.5 flex items-center gap-1 text-[15px] font-semibold text-gray-900 dark:text-white">
+          <h3 className="flex items-center gap-1.5 text-base font-bold text-gray-900 dark:text-white leading-tight">
             <span className="truncate">{item.title}</span>
             {item.verified && (
               <span className={cn('inline-flex shrink-0 items-center', accent.text)} title="Verified">
@@ -60,15 +63,15 @@ export function DiscoverCard({ item, style }: { item: DiscoverItem; style?: CSSP
           </h3>
         </div>
       </div>
-      <p className="line-clamp-2 text-[13px] leading-relaxed text-gray-500 dark:text-gray-400">
+      <p className="line-clamp-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400 mt-1">
         {item.subtitle}
       </p>
       {item.tags.length > 0 && (
-        <div className="mt-auto flex flex-wrap gap-1.5">
+        <div className="mt-auto pt-2 flex flex-wrap gap-1.5">
           {item.tags.slice(0, 3).map((t) => (
             <span
               key={t}
-              className="rounded-md bg-black/4 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:bg-white/6 dark:text-gray-300"
+              className="rounded-md bg-gray-50 px-2 py-1 text-[11px] font-medium text-gray-600 border border-gray-100 dark:border-white/5 dark:bg-white/5 dark:text-gray-300 transition-colors group-hover:border-gray-200 dark:group-hover:border-white/10"
             >
               {t}
             </span>
