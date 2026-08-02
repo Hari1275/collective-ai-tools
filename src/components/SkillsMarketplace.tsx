@@ -378,13 +378,13 @@ const SkillsMarketplace: React.FC = () => {
               Submit your agent skills to the marketplace. The community can
               discover, install, and build on your work.
             </p>
-            <button
-              onClick={() => navigate('/skills/submit')}
+            <Link
+              to="/submit"
               className="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-xl font-bold text-base hover:bg-violet-700 transition-colors shadow-lg shadow-violet-500/25"
             >
               Submit a Skill
               <ArrowUpRight className="h-4 w-4" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

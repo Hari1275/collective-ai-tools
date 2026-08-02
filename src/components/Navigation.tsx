@@ -153,7 +153,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPath }) => {
               {/* Desktop Auth/Avatar - hidden on small screens */}
               <div className="hidden md:flex items-center gap-4 border-l border-gray-200 dark:border-gray-700 pl-4 ml-1">
                 {user && (
-                  <div className="flex items-center gap-3 ml-2 border-l border-gray-200 dark:border-gray-700 pl-4">
+                  <div className="flex items-center gap-3 ml-2">
                     {user.avatar ? (
                       <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 shadow-xs" title={user.name} />
                     ) : (

@@ -39,7 +39,7 @@ const ComparisonPage = lazy(() => import('./components/ComparisonPage'));
 const TrendingPage = lazy(() => import('./components/TrendingPage'));
 const CommunityPromptsPage = lazy(() => import('./components/CommunityPromptsPage'));
 const SkillsMarketplace = lazy(() => import('./components/SkillsMarketplace'));
-const SubmitSkill = lazy(() => import('./components/SubmitSkill'));
+
 
 function RouteFallback() {
   return (
@@ -75,7 +75,6 @@ function App() {
             <Route path="tools" element={<ExternalTools />} />
           <Route path="/trending" element={<TrendingPage />} />
           <Route path="/skills" element={<SkillsMarketplace />} />
-          <Route path="/skills/submit" element={<SubmitSkill />} />
           <Route path="/prompts" element={<CommunityPromptsPage />} />
             <Route path="mcp-catalog" element={<MCPCatalog />} />
             <Route path="prompt-studio" element={<PatternStudio />} />
