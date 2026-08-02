@@ -6,7 +6,7 @@ describe('discover adapters', () => {
     const item = adaptTool({
       _id: 't1', name: 'LangChain', description: 'LLM framework',
       url: 'https://langchain.com', tags: ['llm', 'agents'],
-      category: { _id: 'c1', name: 'Developer', slug: 'developer' },
+      categories: [{ _id: 'c1', name: 'Developer', slug: 'developer' }],
     } as any);
     expect(item).toEqual({
       id: 't1', type: 'tool', title: 'LangChain', subtitle: 'LLM framework',
@@ -46,7 +46,7 @@ describe('discover adapters', () => {
   });
 
   it('adaptTool prefers pricing over category for meta', () => {
-    const item = adaptTool({ _id: 't2', name: 'X', description: 'd', url: 'https://x', tags: [], pricing: [{ _id: 'pr', name: 'Free', slug: 'free' }], category: { _id: 'c', name: 'Design', slug: 'design' } } as any);
+    const item = adaptTool({ _id: 't2', name: 'X', description: 'd', url: 'https://x', tags: [], pricing: [{ _id: 'pr', name: 'Free', slug: 'free' }], categories: [{ _id: 'c', name: 'Design', slug: 'design' }] } as any);
     expect(item.meta).toBe('Free');
   });
 

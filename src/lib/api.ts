@@ -61,8 +61,8 @@ export interface AITool {
   description: string;
   url: string;
   website?: string;
-  // Populated fields
-  category?: FilterOption;
+  // Populated fields — categories is an array; backend populates all ObjectIds
+  categories?: FilterOption[];
   pricing?: FilterOption[];
   tags: string[];
   addedDate?: string;

@@ -218,10 +218,18 @@ const ComparisonPage: React.FC = () => {
                 <TableRow>
                   <TableCell className="font-semibold">Category</TableCell>
                   <TableCell className="text-center">
-                    <Badge variant="secondary">{toolA.category?.name || 'General'}</Badge>
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {toolA.categories && toolA.categories.length > 0
+                        ? toolA.categories.map(c => <Badge key={c._id} variant="secondary">{c.name}</Badge>)
+                        : <Badge variant="secondary">General</Badge>}
+                    </div>
                   </TableCell>
                   <TableCell className="text-center">
-                    <Badge variant="secondary">{toolB.category?.name || 'General'}</Badge>
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {toolB.categories && toolB.categories.length > 0
+                        ? toolB.categories.map(c => <Badge key={c._id} variant="secondary">{c.name}</Badge>)
+                        : <Badge variant="secondary">General</Badge>}
+                    </div>
                   </TableCell>
                 </TableRow>
 

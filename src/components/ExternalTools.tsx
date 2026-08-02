@@ -86,7 +86,7 @@ const ExternalTools: React.FC = () => {
           url: t.website || t.url,
           description: t.description,
           tags: t.tags || [],
-          category: t.category?.name || 'Uncategorized',
+          category: t.categories?.[0]?.name || 'Uncategorized',
           addedDate: t.addedDate,
           clickCount: savedClicks[t.website || t.url]?.count || 0,
           views: 0 // Placeholder if backend API doesn't return view count yet

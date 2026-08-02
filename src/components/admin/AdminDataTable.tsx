@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, ChevronRight, Search, Plus, ArrowUpDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, Plus, ArrowUpDown, Pencil, Trash2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface Column {
@@ -33,6 +33,8 @@ interface AdminDataTableProps {
   onSearch: (query: string) => void;
   onSort: (key: string) => void;
   onAdd: () => void;
+  onEdit?: (row: any) => void;
+  onDelete?: (row: any) => void;
   title: string;
 }
 
@@ -45,6 +47,8 @@ export default function AdminDataTable({
   onSearch,
   onSort,
   onAdd,
+  onEdit,
+  onDelete,
   title
 }: AdminDataTableProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,6 +101,9 @@ export default function AdminDataTable({
                                         </div>
                                     </TableHead>
                                 ))}
+                                {(onEdit || onDelete) && (
+                                    <TableHead className="w-20 text-right">Actions</TableHead>
+                                )}
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -107,6 +114,30 @@ export default function AdminDataTable({
                                             {col.render ? col.render(row) : row[col.key]}
                                         </TableCell>
                                     ))}
+                                    {(onEdit || onDelete) && (
+                                        <TableCell className="text-right">
+                                            <div className="flex items-center justify-end gap-1">
+                                                {onEdit && (
+                                                    <button
+                                                        onClick={() => onEdit(row)}
+                                                        className="p-1.5 rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
+                                                        title="Edit"
+                                                    >
+                                                        <Pencil className="h-3.5 w-3.5" />
+                                                    </button>
+                                                )}
+                                                {onDelete && (
+                                                    <button
+                                                        onClick={() => onDelete(row)}
+                                                        className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                                                        title="Delete"
+                                                    >
+                                                        <Trash2 className="h-3.5 w-3.5" />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </TableCell>
+                                    )}
                                 </TableRow>
                             ))}
                         </TableBody>

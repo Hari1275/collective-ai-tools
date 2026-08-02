@@ -11,7 +11,7 @@ function clean(text?: string): string {
 }
 
 export function adaptTool(t: AITool): DiscoverItem {
-  return { id: t._id, type: 'tool', title: t.name, subtitle: clean(t.description), tags: t.tags ?? [], href: t.url, external: true, meta: t.pricing?.[0]?.name ?? t.category?.name };
+  return { id: t._id, type: 'tool', title: t.name, subtitle: clean(t.description), tags: t.tags ?? [], href: t.url, external: true, meta: t.pricing?.[0]?.name ?? t.categories?.[0]?.name };
 }
 
 export function adaptMcp(m: McpRaw): DiscoverItem {
