@@ -16,7 +16,6 @@ import { useFavorites } from '@/hooks/useFavorites';
 import { useNavigate } from 'react-router-dom';
 
 // Helpers
-const FAVORITES_KEY = 'favoriteTools';
 const CLICKS_KEY = 'toolClicks';
 const COMPARE_LIMIT = 2;
 

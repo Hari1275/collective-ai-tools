@@ -43,8 +43,7 @@ export default function DiscoverPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search tools, MCP servers, prompts, skills, repos…"
-              aria-label="Search the AI ecosystem"
-              className="h-14 rounded-2xl border-black/10 bg-white/85 pl-12 pr-4 text-base shadow-xs backdrop-blur-xl transition-shadow focus-visible:ring-2 focus-visible:ring-blue-500/40 dark:border-white/10 dark:bg-white/4"
+              className="h-14 rounded-2xl border-black/10 bg-white/85 pl-12 pr-4 text-base text-gray-900 shadow-xs backdrop-blur-xl transition-shadow focus-visible:ring-2 focus-visible:ring-blue-500/40 dark:border-white/10 dark:bg-white/4 dark:text-white"
             />
           </div>
 

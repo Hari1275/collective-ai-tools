@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withUtm } from '@/lib/outbound';
 import {
   Search,
@@ -84,7 +84,6 @@ function formatStars(n: number): string {
 }
 
 const SkillsMarketplace: React.FC = () => {
-  const navigate = useNavigate();
   const [skills, setSkills] = useState<Skill[]>([]);
   const [categories, setCategories] = useState<SkillCategory[]>([]);
   const [loading, setLoading] = useState(true);
