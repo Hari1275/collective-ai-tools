@@ -636,6 +636,7 @@ Use these hashtags in search to filter out the tools
 - [SomniAI](https://somniai.com/) - Offers accurate and personalized interpretations of dreams in seconds. `#free`
 
 **[⬆️ Back to Top](#table-of-contents)**
+- [Pixel Pet](https://letmethink.cc/app/pixel-pet/) - Turn a personality description into a deterministic ASCII pixel companion in the browser.
 
 
 ## Gaming
