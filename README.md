@@ -296,7 +296,8 @@ Use these hashtags in search to filter out the tools
 
 - [Arkham Intelligence](https://arkhamintelligence.com/) - On-chain analytics platform that deanonymizes blockchain addresses and tracks entity activity using AI. `#freemium`
 - [Coinfeeds](https://chat.coinfeeds.io/)- Your Crypto Chatbot Companion, ask it anything! `#free`
-- [Token Metrics](https://www.tokenmetrics.com/) - AI-powered crypto research and ratings platform with price predictions and portfolio tools. `#freemium`
+- [Token Metrics](https://www.tokenmetrics.com/) - AI-powered crypto research and ratings platform with price prediction
+- [AgentServices](https://agentservices.to) - x402-paid crypto/market data APIs with 37 MCP tools for AI agents — BTC indicators, DeFi stats, macro data. USDC micropayments on Base. `#paid` `#opensource`s and portfolio tools. `#freemium`
 
 **[⬆️ Back to Top](#table-of-contents)**
 
