@@ -1192,6 +1192,7 @@ Use these hashtags in search to filter out the tools
 - [Veed Background](https://www.veed.io/tools/background-remover) - Online background removal and green-screen. `#free`
 - [Veo](https://deepmind.google/models/veo/) - Google DeepMind's text-to-video model (currently Veo 3.1), generates cinematic video with synchronized audio and realistic physics. `#paid`
 - [Video Ocean](https://videoocean.com/) - Text-to-video scene simulation platform. `#free`
+- [VidLux AI](https://vidlux.ai/) - An all-in-one AI video creation platform for generating and editing videos from text, images, videos, and audio references. `#freemium`
 - [Vidnoz](https://www.vidnoz.com/) - Use Vidnoz AI and Vidnoz Flex to make winning videos! `#freemium`
 - [Vidu](https://www.vidu.studio/) - Long-duration video large model (Tsinghua). `#free`
 - [Viggle](https://viggle.ai/) - Driven by 3D basic model to move characters. `#free`
@@ -1202,6 +1203,7 @@ Use these hashtags in search to filter out the tools
 - [Wondershare Timo](https://timo.wondershare.com/) - Professional one-stop media creation solution. ``
 - [Xiling Digital Human](https://xiling.baidu.com/) - Marketing promotion and content output avatars. `#free`
 - [ZOOOP](https://zooop.ai/) - AI-native filmmaking workstation for text/image-to-video, lip-sync, and storyboarding on an infinite canvas. `#freemium`
+  
 
 **[⬆️ Back to Top](#table-of-contents)**
 
