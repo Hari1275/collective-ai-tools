@@ -78,7 +78,7 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.52.0",
     "vercel": "^50.4.5",
-    "vite": "^7.3.0",
+    "vite": "^7.3.5",
     "vite-plugin-pwa": "^1.0.3",
     "vitest": "^3.2.6"
   },
