@@ -1173,6 +1173,7 @@ Use these hashtags in search to filter out the tools
 - [Pika](https://pika.art/) - Platform to transform creativity into videos. ``
 - [Pika Labs 2.0](https://pika.art/) - Next-generation video creation with enhanced motion and style control `#freemium`
 - [pika.art](https://pika.art/) - An idea-to-video platform that brings your creativity to motion. `#freemium`
+- [Pixmax](https://www.pixmax.ai/) - All-in-one AI platform for generating videos and images with leading models and visual workflows. `#freemium`
 - [PixVerse](https://pixverse.ai/) - Text-to-realistic, anime, and 3D videos. `#free`
 - [Pollo AI](https://pollo.ai/) - Singapore-based image and video creative hub. ``
 - [Quickads](https://www.quickads.ai/) - AI Ad Creation Platform for all your Ad Campaigns. `#freemium`
