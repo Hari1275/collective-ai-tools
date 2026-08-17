@@ -22,287 +22,298 @@ interface SEOProps {
   aiFriendly?: boolean;
 }
 
-const SEO: React.FC<SEOProps> = ({
-  title = 'Collective AI Tools - Curated Directory of AI Tools',
-  description = 'Discover the best AI tools and resources. A comprehensive, searchable directory of AI applications for productivity, creativity, and development.',
-  keywords = 'AI tools, artificial intelligence, productivity, automation, machine learning, AI directory',
-  image = 'https://collectiveai.tools/og-image.png',
-  url = 'https://collectiveai.tools',
-  type = 'website',
-  structuredData,
-  author = 'Collective AI Tools Team',
+const AI_FRIENDLY_METAS: Array<{ name: string; content: string }> = [
+  { name: 'ai-training', content: 'allow' },
+  {
+    name: 'ai-content',
+    content:
+      'AI tools directory with curated resources for developers and researchers',
+  },
+  { name: 'content-type', content: 'directory, tools, resources' },
+  {
+    name: 'ai-purpose',
+    content: 'educational, research, development, productivity',
+  },
+  {
+    name: 'ai-category',
+    content: 'technology, artificial intelligence, tools, automation',
+  },
+  { name: 'ai-license', content: 'MIT' },
+  { name: 'ai-format', content: 'structured data, JSON, API' },
+  { name: 'ai-update-frequency', content: 'daily' },
+  { name: 'ai-data-quality', content: 'curated, verified, community-driven' },
+];
+
+const DOCUMENT_DEFAULT_METAS: Array<{ name: string; content: string }> = [
+  { name: 'language', content: 'en-US' },
+  { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+  { name: 'theme-color', content: '#3B82F6' },
+  { name: 'google-adsense-account', content: 'ca-pub-6332717099679917' },
+];
+
+function setExistingContent(selector: string, content: string): void {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.setAttribute('content', content);
+  }
+}
+
+function createMeta(attributes: Record<string, string>): HTMLMetaElement {
+  const meta = document.createElement('meta');
+  Object.entries(attributes).forEach(([key, value]) => {
+    meta.setAttribute(key, value);
+  });
+  document.head.appendChild(meta);
+  return meta;
+}
+
+function ensureMeta(
+  selector: string,
+  attributes: Record<string, string>
+): void {
+  if (document.querySelector(selector)) {
+    return;
+  }
+  createMeta(attributes);
+}
+
+function upsertMeta(
+  selector: string,
+  attributes: Record<string, string>
+): void {
+  const existing = document.querySelector(selector);
+  if (existing) {
+    Object.entries(attributes).forEach(([key, value]) => {
+      existing.setAttribute(key, value);
+    });
+    return;
+  }
+  createMeta(attributes);
+}
+
+function updateStructuredData(structuredData: object): void {
+  const existingScript = document.querySelector(
+    'script[type="application/ld+json"]'
+  );
+  if (existingScript) {
+    existingScript.remove();
+  }
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(structuredData);
+  document.head.appendChild(script);
+}
+
+function updateCanonicalUrl(url: string): void {
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute('href', url);
+}
+
+function ensureAiFriendlyTags(): void {
+  AI_FRIENDLY_METAS.forEach(({ name, content }) => {
+    ensureMeta(`meta[name="${name}"]`, { name, content });
+  });
+
+  if (document.querySelector('link[rel="ai-data"]')) {
+    return;
+  }
+
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'ai-data');
+  link.setAttribute('href', 'https://collectiveai.tools/ai-data.json');
+  link.setAttribute('type', 'application/json');
+  document.head.appendChild(link);
+}
+
+function updateCoreMetaTags({
+  title,
+  description,
+  keywords,
+  image,
+  url,
+  type,
+}: {
+  title: string;
+  description: string;
+  keywords: string;
+  image: string;
+  url: string;
+  type: string;
+}): void {
+  document.title = title;
+
+  setExistingContent('meta[name="description"]', description);
+  setExistingContent('meta[name="keywords"]', keywords);
+
+  setExistingContent('meta[property="og:title"]', title);
+  setExistingContent('meta[property="og:description"]', description);
+  setExistingContent('meta[property="og:image"]', image);
+  setExistingContent('meta[property="og:url"]', url);
+  setExistingContent('meta[property="og:type"]', type);
+
+  setExistingContent('meta[property="twitter:title"]', title);
+  setExistingContent('meta[property="twitter:description"]', description);
+  setExistingContent('meta[property="twitter:image"]', image);
+  setExistingContent('meta[property="twitter:url"]', url);
+}
+
+function updateArticleMetaTags({
+  author,
   publishedTime,
   modifiedTime,
-  section = 'Technology',
-  tags = ['AI', 'Tools', 'Productivity', 'Automation'],
-  aiFriendly = true
-}) => {
+  section,
+  tags = [],
+}: {
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  section?: string;
+  tags?: string[];
+}): void {
+  const optionalMetas: Array<{ selector: string; attributes: Record<string, string> }> = [
+    {
+      selector: 'meta[property="article:published_time"]',
+      attributes: {
+        property: 'article:published_time',
+        content: publishedTime ?? '',
+      },
+    },
+    {
+      selector: 'meta[property="article:modified_time"]',
+      attributes: {
+        property: 'article:modified_time',
+        content: modifiedTime ?? '',
+      },
+    },
+    {
+      selector: 'meta[name="author"]',
+      attributes: { name: 'author', content: author ?? '' },
+    },
+    {
+      selector: 'meta[property="article:section"]',
+      attributes: { property: 'article:section', content: section ?? '' },
+    },
+  ];
+
+  optionalMetas
+    .filter(item => item.attributes.content)
+    .forEach(item => upsertMeta(item.selector, item.attributes));
+
+  tags.forEach(tag => {
+    createMeta({ property: 'article:tag', content: tag });
+  });
+}
+
+function ensureDefaultDocumentMeta(): void {
+  DOCUMENT_DEFAULT_METAS.forEach(({ name, content }) => {
+    ensureMeta(`meta[name="${name}"]`, { name, content });
+  });
+}
+
+const SEO_DEFAULTS = {
+  title: 'Collective AI Tools - Curated Directory of AI Tools',
+  description:
+    'Discover the best AI tools and resources. A comprehensive, searchable directory of AI applications for productivity, creativity, and development.',
+  keywords:
+    'AI tools, artificial intelligence, productivity, automation, machine learning, AI directory',
+  image: 'https://collectiveai.tools/og-image.png',
+  url: 'https://collectiveai.tools',
+  type: 'website',
+  author: 'Collective AI Tools Team',
+  section: 'Technology',
+  tags: ['AI', 'Tools', 'Productivity', 'Automation'],
+  aiFriendly: true,
+};
+
+type ResolvedSeo = typeof SEO_DEFAULTS & {
+  structuredData?: object;
+  publishedTime?: string;
+  modifiedTime?: string;
+};
+
+function omitUndefined<T extends object>(obj: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, value]) => value !== undefined)
+  ) as Partial<T>;
+}
+
+function resolveSeoProps(props: SEOProps): ResolvedSeo {
+  return { ...SEO_DEFAULTS, ...omitUndefined(props) };
+}
+
+function applySeoToDocument(seo: ResolvedSeo): void {
+  updateCoreMetaTags(seo);
+
+  if (seo.structuredData) {
+    updateStructuredData(seo.structuredData);
+  }
+
+  updateCanonicalUrl(seo.url);
+
+  if (seo.aiFriendly) {
+    ensureAiFriendlyTags();
+  }
+
+  updateArticleMetaTags(seo);
+  ensureDefaultDocumentMeta();
+}
+
+const SEO: React.FC<SEOProps> = props => {
+  const {
+    title,
+    description,
+    keywords,
+    image,
+    url,
+    type,
+    structuredData,
+    author,
+    publishedTime,
+    modifiedTime,
+    section,
+    tags,
+    aiFriendly,
+  } = resolveSeoProps(props);
+
   useEffect(() => {
-    // Update document title
-    document.title = title;
+    applySeoToDocument({
+      title,
+      description,
+      keywords,
+      image,
+      url,
+      type,
+      structuredData,
+      author,
+      publishedTime,
+      modifiedTime,
+      section,
+      tags,
+      aiFriendly,
+    });
+  }, [
+    title,
+    description,
+    keywords,
+    image,
+    url,
+    type,
+    structuredData,
+    author,
+    publishedTime,
+    modifiedTime,
+    section,
+    tags,
+    aiFriendly,
+  ]);
 
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', description);
-    }
-
-    // Update meta keywords
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (metaKeywords) {
-      metaKeywords.setAttribute('content', keywords);
-    }
-
-    // Update Open Graph tags
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) {
-      ogTitle.setAttribute('content', title);
-    }
-
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogDescription) {
-      ogDescription.setAttribute('content', description);
-    }
-
-    const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage) {
-      ogImage.setAttribute('content', image);
-    }
-
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) {
-      ogUrl.setAttribute('content', url);
-    }
-
-    const ogType = document.querySelector('meta[property="og:type"]');
-    if (ogType) {
-      ogType.setAttribute('content', type);
-    }
-
-    // Update Twitter tags
-    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
-    if (twitterTitle) {
-      twitterTitle.setAttribute('content', title);
-    }
-
-    const twitterDescription = document.querySelector('meta[property="twitter:description"]');
-    if (twitterDescription) {
-      twitterDescription.setAttribute('content', description);
-    }
-
-    const twitterImage = document.querySelector('meta[property="twitter:image"]');
-    if (twitterImage) {
-      twitterImage.setAttribute('content', image);
-    }
-
-    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
-    if (twitterUrl) {
-      twitterUrl.setAttribute('content', url);
-    }
-
-    // Add structured data
-    if (structuredData) {
-      // Remove existing structured data
-      const existingScript = document.querySelector('script[type="application/ld+json"]');
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      // Add new structured data
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(structuredData);
-      document.head.appendChild(script);
-    }
-
-    // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', url);
-
-    // Add AI-friendly meta tags
-    if (aiFriendly) {
-      // Add AI training permission meta tag
-      const aiTraining = document.querySelector('meta[name="ai-training"]');
-      if (!aiTraining) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-training');
-        meta.setAttribute('content', 'allow');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI content description
-      const aiContent = document.querySelector('meta[name="ai-content"]');
-      if (!aiContent) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-content');
-        meta.setAttribute('content', 'AI tools directory with curated resources for developers and researchers');
-        document.head.appendChild(meta);
-      }
-
-      // Add content type for AI understanding
-      const contentType = document.querySelector('meta[name="content-type"]');
-      if (!contentType) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'content-type');
-        meta.setAttribute('content', 'directory, tools, resources');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI purpose meta tag
-      const aiPurpose = document.querySelector('meta[name="ai-purpose"]');
-      if (!aiPurpose) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-purpose');
-        meta.setAttribute('content', 'educational, research, development, productivity');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI category meta tag
-      const aiCategory = document.querySelector('meta[name="ai-category"]');
-      if (!aiCategory) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-category');
-        meta.setAttribute('content', 'technology, artificial intelligence, tools, automation');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI license meta tag
-      const aiLicense = document.querySelector('meta[name="ai-license"]');
-      if (!aiLicense) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-license');
-        meta.setAttribute('content', 'MIT');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI format meta tag
-      const aiFormat = document.querySelector('meta[name="ai-format"]');
-      if (!aiFormat) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-format');
-        meta.setAttribute('content', 'structured data, JSON, API');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI update frequency meta tag
-      const aiUpdateFreq = document.querySelector('meta[name="ai-update-frequency"]');
-      if (!aiUpdateFreq) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-update-frequency');
-        meta.setAttribute('content', 'daily');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI data quality meta tag
-      const aiDataQuality = document.querySelector('meta[name="ai-data-quality"]');
-      if (!aiDataQuality) {
-        const meta = document.createElement('meta');
-        meta.setAttribute('name', 'ai-data-quality');
-        meta.setAttribute('content', 'curated, verified, community-driven');
-        document.head.appendChild(meta);
-      }
-
-      // Add AI data endpoint link
-      const aiDataLink = document.querySelector('link[rel="ai-data"]');
-      if (!aiDataLink) {
-        const link = document.createElement('link');
-        link.setAttribute('rel', 'ai-data');
-        link.setAttribute('href', 'https://collectiveai.tools/ai-data.json');
-        link.setAttribute('type', 'application/json');
-        document.head.appendChild(link);
-      }
-    }
-
-    // Add article meta tags if provided
-    if (publishedTime) {
-      const meta = document.querySelector('meta[property="article:published_time"]') || document.createElement('meta');
-      meta.setAttribute('property', 'article:published_time');
-      meta.setAttribute('content', publishedTime);
-      if (!document.querySelector('meta[property="article:published_time"]')) {
-        document.head.appendChild(meta);
-      }
-    }
-
-    if (modifiedTime) {
-      const meta = document.querySelector('meta[property="article:modified_time"]') || document.createElement('meta');
-      meta.setAttribute('property', 'article:modified_time');
-      meta.setAttribute('content', modifiedTime);
-      if (!document.querySelector('meta[property="article:modified_time"]')) {
-        document.head.appendChild(meta);
-      }
-    }
-
-    if (author) {
-      const meta = document.querySelector('meta[name="author"]') || document.createElement('meta');
-      meta.setAttribute('name', 'author');
-      meta.setAttribute('content', author);
-      if (!document.querySelector('meta[name="author"]')) {
-        document.head.appendChild(meta);
-      }
-    }
-
-    if (section) {
-      const meta = document.querySelector('meta[property="article:section"]') || document.createElement('meta');
-      meta.setAttribute('property', 'article:section');
-      meta.setAttribute('content', section);
-      if (!document.querySelector('meta[property="article:section"]')) {
-        document.head.appendChild(meta);
-      }
-    }
-
-    if (tags && tags.length > 0) {
-      tags.forEach(tag => {
-        const meta = document.createElement('meta');
-        meta.setAttribute('property', 'article:tag');
-        meta.setAttribute('content', tag);
-        document.head.appendChild(meta);
-      });
-    }
-
-    // Add language meta tag
-    const lang = document.querySelector('meta[name="language"]');
-    if (!lang) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('name', 'language');
-      meta.setAttribute('content', 'en-US');
-      document.head.appendChild(meta);
-    }
-
-    // Add viewport meta tag for mobile optimization
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (!viewport) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('name', 'viewport');
-      meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
-      document.head.appendChild(meta);
-    }
-
-    // Add theme-color meta tag
-    const themeColor = document.querySelector('meta[name="theme-color"]');
-    if (!themeColor) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('name', 'theme-color');
-      meta.setAttribute('content', '#3B82F6');
-      document.head.appendChild(meta);
-    }
-
-    // Add Google AdSense meta tag
-    const adsenseAccount = document.querySelector('meta[name="google-adsense-account"]');
-    if (!adsenseAccount) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('name', 'google-adsense-account');
-      meta.setAttribute('content', 'ca-pub-6332717099679917');
-      document.head.appendChild(meta);
-    }
-
-  }, [title, description, keywords, image, url, type, structuredData, author, publishedTime, modifiedTime, section, tags, aiFriendly]);
-
-  return null; // This component doesn't render anything
+  return null;
 };
 
 export default SEO;
